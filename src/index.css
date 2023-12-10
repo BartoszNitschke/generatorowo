@@ -5,3 +5,31 @@
 body {
   font-family: "Open Sans", sans-serif;
 }
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-800px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-900px);
+  }
+}
+
+.hamburger {
+  animation-name: slideDown;
+  animation-duration: 1.5s;
+}
+
+.xclicked {
+  animation-name: slideUp;
+  animation-duration: 1.5s;
+}
