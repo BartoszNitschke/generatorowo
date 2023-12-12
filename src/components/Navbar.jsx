@@ -16,24 +16,24 @@ const Navbar = () => {
         </p>
       </div>
 
-      <ul className="hidden md:flex text-[18px] font-semibold mr-16">
-        <li className="px-4 cursor-pointer hover:scale-110 duration-200">
+      <ul className="hidden md:flex text-[18px] font-bold mr-16">
+        <li className="px-4 cursor-pointer hover:translate-y-[-4px] duration-200">
           <Link to="moje-zasilanie" smooth={true} duration={500}>
             Moje Zasilanie
           </Link>
         </li>
-        <li className="px-4 cursor-pointer hover:scale-110 duration-200">
+        <li className="px-4 cursor-pointer hover:translate-y-[-4px] duration-200">
           <Link to="wiedza" smooth={true} duration={500}>
             Wiedza
           </Link>
         </li>
-        <li className="px-4 cursor-pointer hover:scale-110 duration-200">
+        <li className="px-4 cursor-pointer hover:translate-y-[-4px] duration-200">
           Generatory
         </li>
-        <li className="px-4 cursor-pointer hover:scale-110 duration-200">
+        <li className="px-4 cursor-pointer hover:translate-y-[-4px] duration-200">
           Akcesoria
         </li>
-        <li className="px-4 cursor-pointer hover:scale-110 duration-200">
+        <li className="px-4 cursor-pointer hover:translate-y-[-4px] duration-200">
           Części zamienne
         </li>
       </ul>
