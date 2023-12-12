@@ -7,7 +7,7 @@ const Navbar = () => {
   const handleClick = () => setNav(!nav);
 
   return (
-    <header className="h-[100px] w-full fixed flex justify-between items-center px-4 bg-[#ebdb04] text-gray-900 border-b-2 border-gray-400">
+    <header className="h-[100px] w-full fixed flex justify-between items-center px-4 bg-[#ebdb04] text-gray-900 border-b-2 border-gray-900">
       <div>
         <p
           className={!nav ? "block text-[24px] font-semibold ml-16" : "hidden"}
@@ -18,7 +18,14 @@ const Navbar = () => {
 
       <ul className="hidden md:flex text-[18px] font-semibold mr-16">
         <li className="px-4 cursor-pointer hover:scale-110 duration-200">
-          Moje Zasilanie
+          <Link to="moje-zasilanie" smooth={true} duration={500}>
+            Moje Zasilanie
+          </Link>
+        </li>
+        <li className="px-4 cursor-pointer hover:scale-110 duration-200">
+          <Link to="wiedza" smooth={true} duration={500}>
+            Wiedza
+          </Link>
         </li>
         <li className="px-4 cursor-pointer hover:scale-110 duration-200">
           Generatory
@@ -28,9 +35,6 @@ const Navbar = () => {
         </li>
         <li className="px-4 cursor-pointer hover:scale-110 duration-200">
           Części zamienne
-        </li>
-        <li className="px-4 cursor-pointer hover:scale-110 duration-200">
-          Wiedza
         </li>
       </ul>
 
@@ -50,10 +54,10 @@ const Navbar = () => {
         }
       >
         <li className="py-6 text-4xl">Moje Zasilanie</li>
+        <li className="py-6 text-4xl">Wiedza</li>
         <li className="py-6 text-4xl">Generatory</li>
         <li className="py-6 text-4xl">Akcesoria</li>
         <li className="py-6 text-4xl">Części zamienne</li>
-        <li className="py-6 text-4xl">Wiedza</li>
       </ul>
 
       <div className="hidden"></div>

@@ -15,21 +15,7 @@ body {
   }
 }
 
-@keyframes slideUp {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-900px);
-  }
-}
-
 .hamburger {
   animation-name: slideDown;
-  animation-duration: 1.5s;
-}
-
-.xclicked {
-  animation-name: slideUp;
   animation-duration: 1.5s;
 }
