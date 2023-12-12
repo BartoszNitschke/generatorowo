@@ -28,7 +28,7 @@ const Home = () => {
       </div>
       <div className="w-[45%] mt-[100px]">
         <img
-        //  src={GeneratorPhoto}
+          src={GeneratorPhoto}
           alt=""
           className="w-full h-screen object-cover rounded-l-[300px]"
         />
