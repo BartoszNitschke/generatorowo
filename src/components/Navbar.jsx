@@ -7,7 +7,7 @@ const Navbar = () => {
   const handleClick = () => setNav(!nav);
 
   return (
-    <header className="h-[100px] w-full fixed flex justify-between items-center px-4 bg-[#ebdb04] text-gray-900 border-b-2 border-gray-900">
+    <header className="h-[80px] w-full fixed flex justify-between items-center px-4 bg-[#ebdb04] text-gray-900 border-b-2 border-gray-900">
       <div>
         <p
           className={!nav ? "block text-[24px] font-semibold ml-16" : "hidden"}
@@ -16,7 +16,7 @@ const Navbar = () => {
         </p>
       </div>
 
-      <ul className="hidden md:flex text-[18px] font-bold mr-16">
+      <ul className="hidden md:flex text-[16px] font-bold mr-16">
         <li className="px-4 cursor-pointer hover:translate-y-[-4px] duration-200">
           <Link to="moje-zasilanie" smooth={true} duration={500}>
             Moje Zasilanie
