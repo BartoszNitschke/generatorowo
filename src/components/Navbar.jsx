@@ -33,7 +33,7 @@ const mobileLinkVars = {
   open: {
     y: 0,
     transition: {
-      duration: 0.9,
+      duration: 1,
     },
   },
 };
@@ -100,14 +100,14 @@ const Navbar = () => {
                 initial="initial"
                 animate="open"
               >
-                <li className="py-6 text-4xl">
+                <li className="py-5 text-4xl font-semibold">
                   <Link
                     onClick={handleClick}
                     to="moje-zasilanie"
                     smooth={true}
                     duration={500}
                   >
-                    Moje Zasilanie
+                    MOJE ZASILANIE
                   </Link>
                 </li>
               </motion.div>
@@ -118,14 +118,14 @@ const Navbar = () => {
                 initial="initial"
                 animate="open"
               >
-                <li className="py-6 text-4xl">
+                <li className="py-5 text-4xl font-semibold">
                   <Link
                     onClick={handleClick}
                     to="wiedza"
                     smooth={true}
                     duration={500}
                   >
-                    Wiedza
+                    WIEDZA
                   </Link>
                 </li>
               </motion.div>
@@ -137,7 +137,7 @@ const Navbar = () => {
                 animate="open"
               >
                 {" "}
-                <li className="py-6 text-4xl">Generatory</li>
+                <li className="py-5 text-4xl font-semibold">GENERATORY</li>
               </motion.div>
             </div>
             <div className="overflow-hidden">
@@ -147,7 +147,7 @@ const Navbar = () => {
                 initial="initial"
                 animate="open"
               >
-                <li className="py-6 text-4xl">Akcesoria</li>
+                <li className="py-5 text-4xl font-semibold">AKCESORIA</li>
               </motion.div>
             </div>
             <div className="overflow-hidden">
@@ -156,7 +156,7 @@ const Navbar = () => {
                 initial="initial"
                 animate="open"
               >
-                <li className="py-6 text-4xl">Części zamienne</li>
+                <li className="py-5 text-4xl font-semibold">CZĘŚCI ZAMIENNE</li>
               </motion.div>
             </div>
           </motion.ul>
