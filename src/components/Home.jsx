@@ -4,7 +4,7 @@ import { TypeAnimation } from "react-type-animation";
 
 const Home = () => {
   return (
-    <div className="w-full h-screen flex items-center bg-gradient-to-r from-[#000300] to-[#292929]">
+    <div className="w-full h-screen flex items-center bg-gradient-to-b from-[#000300] to-[#202020]">
       <div className="w-[55%] h-screen text-white flex flex-col items-center justify-center">
         <h1 className="text-[60px] text-[#ebdb04] font-bold">
           ZASIL SIĘ JUŻ DZIŚ!
