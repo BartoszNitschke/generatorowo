@@ -1,19 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { BiSolidCarGarage } from "react-icons/bi";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
+const devicesPower = {
+  kaloryfer: 100,
+  mikrofala: 200,
+  plytaGrzewcza: 150,
+  piekarnik: 300,
+  komputer: 400,
+  telewizor: 250,
+};
+
 const MojeZasilanie = () => {
+  const [isCalculatorVisible, setIsCalculatorVisible] = useState(false);
+  const [sumPower, setSumPower] = useState(0);
+  const [chosenDevices, setChosenDevices] = useState([]);
+  const [newDevice, setNewDevice] = useState("");
+
+  const handleCalculatorVisibility = () => {
+    setIsCalculatorVisible(!isCalculatorVisible);
+    setSumPower(0);
+    setChosenDevices([]);
+  };
+
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    setNewDevice(parseInt(e.target.value));
+  };
+
+  const addNewDevice = () => {
+    setSumPower((prevSum) => prevSum + newDevice);
+    setNewDevice("");
+  };
+
+  const handleCheckboxChange = (nazwaUrzadzenia, isChecked) => {
+    setSumPower((prevSuma) => {
+      if (isChecked) {
+        setChosenDevices([...chosenDevices, nazwaUrzadzenia]);
+        return prevSuma + devicesPower[nazwaUrzadzenia];
+      } else {
+        setChosenDevices((prevDevices) =>
+          prevDevices.filter((device) => device !== nazwaUrzadzenia)
+        );
+        return prevSuma - devicesPower[nazwaUrzadzenia];
+      }
+    });
+  };
+
   return (
     <div
       name="moje-zasilanie"
-      className="w-full h-screen bg-gradient-to-b from-[#0a0a0a] to-[#131313] flex flex-col justify-center items-center"
+      className="w-full max-h-[1300px] min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#131313] flex flex-col justify-center items-center"
     >
       <h1 className="text-[#ebdb04] text-[48px] py-16 font-bold">
         Moje zasilanie
       </h1>
       <div className="w-full flex justify-center gap-x-10">
-        <div className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300">
+        <div
+          className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none"
+          onClick={handleCalculatorVisibility}
+        >
           <FaHome className="text-[64px] mt-4" />
           <p className="mt-3 text-[24px] font-semibold">Dom</p>
           <p className="mt-4">
@@ -27,7 +74,10 @@ const MojeZasilanie = () => {
           </p>
         </div>
 
-        <div className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300">
+        <div
+          className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none"
+          onClick={handleCalculatorVisibility}
+        >
           <BiSolidCarGarage className="text-[64px] mt-4" />
           <p className="mt-3 text-[24px] font-semibold">Garaż</p>
           <p className="mt-4">
@@ -41,7 +91,10 @@ const MojeZasilanie = () => {
           </p>
         </div>
 
-        <div className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300">
+        <div
+          className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none"
+          onClick={handleCalculatorVisibility}
+        >
           <HiOutlineOfficeBuilding className="text-[64px] mt-4" />
           <p className="mt-3 text-[24px] font-semibold">Firma</p>
           <p className="mt-4">
@@ -55,6 +108,139 @@ const MojeZasilanie = () => {
           </p>
         </div>
       </div>
+
+      {isCalculatorVisible && (
+        <div className="flex-col text-center">
+          <p className="text-white text-[24px] mt-16">Twój kalkulator mocy</p>
+          <div className="flex flex-col">
+            <div className="pt-8 flex flex-col justify-center items-center text-white">
+              <div className="flex">
+                <input
+                  type="checkbox"
+                  name="kaloryfer"
+                  id="kaloryfer"
+                  className="mx-3"
+                  onChange={(e) =>
+                    handleCheckboxChange("kaloryfer", e.target.checked)
+                  }
+                />
+                <label htmlFor="kaloryfer">Kaloryfer</label>
+
+                <input
+                  type="checkbox"
+                  name="mikrofala"
+                  id="mikrofala"
+                  className="mx-3"
+                  onChange={(e) =>
+                    handleCheckboxChange("mikrofala", e.target.checked)
+                  }
+                />
+                <label htmlFor="mikrofala">Mikrofala</label>
+
+                <input
+                  type="checkbox"
+                  name="plytaGrzewcza"
+                  id="plytaGrzewcza"
+                  className="mx-3"
+                  onChange={(e) =>
+                    handleCheckboxChange("plytaGrzewcza", e.target.checked)
+                  }
+                />
+                <label htmlFor="plytaGrzewcza">Płyta grzewcza</label>
+
+                <input
+                  type="checkbox"
+                  name="piekarnik"
+                  id="piekarnik"
+                  className="mx-3"
+                  onChange={(e) =>
+                    handleCheckboxChange("piekarnik", e.target.checked)
+                  }
+                />
+                <label htmlFor="piekarnik">Piekarnik</label>
+
+                <input
+                  type="checkbox"
+                  name="komputer"
+                  id="komputer"
+                  className="mx-3"
+                  onChange={(e) =>
+                    handleCheckboxChange("komputer", e.target.checked)
+                  }
+                />
+                <label htmlFor="komputer">Komputer</label>
+
+                <input
+                  type="checkbox"
+                  name="telewizor"
+                  id="telewizor"
+                  className="mx-3"
+                  onChange={(e) =>
+                    handleCheckboxChange("telewizor", e.target.checked)
+                  }
+                />
+                <label htmlFor="telewizor">Telewizor</label>
+              </div>
+              <div className="flex my-2">
+                <label htmlFor="urzadzenie">Dodaj urządzenie</label>
+                <input
+                  type="number"
+                  name="urzadzenie"
+                  id="urzadzenie"
+                  placeholder="Podaj moc urządzenia"
+                  className="mx-3 text-black"
+                  value={newDevice}
+                  onChange={handleInputChange}
+                />
+                <button
+                  onClick={addNewDevice}
+                  className="bg-white border-2 border-black text-black px-2 cursor-pointer"
+                >
+                  Dodaj
+                </button>
+              </div>
+              <p>
+                {" "}
+                // Powyższe opcje będą po lewej stronie panelu z ikonkami,
+                roboczo są w jednej linii
+              </p>
+              <div className="flex my-4 text-[#ebdb04] font-semibold">
+                {chosenDevices.map((device) => {
+                  return (
+                    <p className="mx-3 text-[18px]">
+                      {device} - {devicesPower[device]}
+                    </p>
+                  );
+                })}
+              </div>
+              <div className="flex justify-center items-center text-[24px] py-2 text-center">
+                <p>Twoja moc: </p>
+                <p className="w-[100px] bg-white border-2 border-black text-black ml-2">
+                  {sumPower}
+                </p>
+              </div>
+              <p className="py-2">
+                // Ta część będzie po prawej stronie razem z listą co zaznaczono
+                i odpowiednimi mocami dla każego urządzenia, w przypadku dodania
+                urządzenia, oprócz mocy będzie jeszcze miejsce na wpisanie nazwy
+                i to również wyświetli się na liście
+              </p>
+              <p className="py-2">
+                // W zależności od wybranej opcji (dom, garaż, firma) będą
+                pojawiać się różne urządzenia{" "}
+              </p>
+              <p className="py-2">
+                // Całość czysto poglądowo, styl będzie zrobiony po ustaleniu
+                dokładnej funkcjonalności
+              </p>
+              <p>
+                // Nachodzące na pasek nawigacyjny elementy będą naprawione w
+                późniejszych aktualizacjach
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
