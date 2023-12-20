@@ -26,6 +26,7 @@ const MojeZasilanie = () => {
     setIsCalculatorVisible(!isCalculatorVisible);
     setSumPower(0);
     setChosenDevices([]);
+    setShowGenerators(false);
   };
 
   const handleInputChange = (e) => {
