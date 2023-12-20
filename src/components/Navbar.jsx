@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-scroll";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import KaltmannLogo from "../assets/kaltmann_logo.png";
 
 const menuVars = {
   initial: {
@@ -43,13 +44,15 @@ const Navbar = () => {
   const handleClick = () => setNav(!nav);
 
   return (
-    <header className="h-[80px] w-full fixed flex justify-between items-center px-4 bg-[#ebdb04] text-gray-900 border-b-2 border-gray-900">
+    <header className="h-[80px] w-full fixed flex justify-between items-center px-4 bg-[#ebdb04] text-gray-900 border-b-2 border-gray-900 z-50">
       <div>
-        <p
-          className={!nav ? "block text-[24px] font-semibold ml-16" : "hidden"}
-        >
-          generatorowo.pl
-        </p>
+        <Link to="home" smooth={true} duration={500}>
+          <img
+            src={KaltmannLogo}
+            alt=""
+            className="w-[200px] ml-16 cursor-pointer"
+          />
+        </Link>
       </div>
 
       <ul className="hidden md:flex text-[16px] font-bold mr-16">

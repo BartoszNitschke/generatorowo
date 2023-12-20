@@ -90,14 +90,14 @@ export const Knowledge = () => {
           zostać wyłączony na przynajmniej pół godziny w celu ostygnięcia. Po
           ostygnięciu generatora możemy uzupełnić paliwo w zbiorniku, sprawdzić
           poziom oleju, wyczyścić generator i ponownie go uruchomić. Utrzymanie
-          generatora w czystości, regularne wymiany oleju oraz utrzymanie
+          generatora w czystości, regularne wymiany oleju oraz utrzymanie.
         </p>
 
         <h2 className="text-[#ebdb04] text-[28px] font-semibold mt-16">
           GENERATORY MARKI <span className="font-semibold">KALTMANN</span> SĄ
           WYRYWKOWO TESTOWANE!
         </h2>
-        <p className="mt-3 text-[18px] pb-16">
+        <p className="mt-3 text-[18px] pb-4">
           Każdy z testowanych generatorów przechodzi test silnika spalinowego
           oraz prądnicy i instalacji elektrycznej. Czas całego testu to 400
           roboczo godzin. Podczas wykonywania testu generator ma wymieniany olej
@@ -106,6 +106,11 @@ export const Knowledge = () => {
           oporowego o wartości 60% mocy prądnicy generatora w trakcie długiego
           testu i podczas chwilowego testu obciążenie 100% mocy prądnicy.
         </p>
+        <div className="flex items-center justify-center">
+          <button className="text-black bg-[#ebdb04] text-[24px] py-3 px-4 mt-8 mx-auto rounded-xl shadow-md shadow-gray-500 mb-16">
+            Pobierz PDF
+          </button>
+        </div>
       </div>
     </div>
   );

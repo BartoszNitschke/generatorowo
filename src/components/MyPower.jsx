@@ -67,7 +67,7 @@ const MojeZasilanie = () => {
       </h1>
       <div className="w-full flex justify-center gap-x-10">
         <div
-          className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none"
+          className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none z"
           onClick={handleCalculatorVisibility}
         >
           <FaHome className="text-[64px] mt-4" />
@@ -208,7 +208,7 @@ const MojeZasilanie = () => {
                   Dodaj
                 </button>
               </div>
-              <p>
+              <p className="text-red-500 font-semibold">
                 {" "}
                 // Powyższe opcje będą po lewej stronie panelu z ikonkami,
                 roboczo są w jednej linii
@@ -241,23 +241,19 @@ const MojeZasilanie = () => {
                   <img src={Generator3} alt="" className="w-[200px]" />
                 </div>
               )}
-              <p className="py-2">
+              <p className="py-2 text-red-500 font-semibold">
                 // Ta część będzie po prawej stronie razem z listą co zaznaczono
                 i odpowiednimi mocami dla każego urządzenia, w przypadku dodania
                 urządzenia, oprócz mocy będzie jeszcze miejsce na wpisanie nazwy
                 i to również wyświetli się na liście
               </p>
-              <p className="py-2">
+              <p className="py-2 text-red-500 font-semibold">
                 // W zależności od wybranej opcji (dom, garaż, firma) będą
                 pojawiać się różne urządzenia{" "}
               </p>
-              <p className="py-2">
-                // Całość czysto poglądowo, styl będzie zrobiony po ustaleniu
+              <p className="py-2 text-red-500 font-semibold">
+                // Całość czysto poglądowo, wygląd będzie zrobiony po ustaleniu
                 dokładnej funkcjonalności
-              </p>
-              <p>
-                // Nachodzące na pasek nawigacyjny elementy będą naprawione w
-                późniejszych aktualizacjach
               </p>
             </div>
           </div>
