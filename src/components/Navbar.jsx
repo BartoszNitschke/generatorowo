@@ -1,19 +1,58 @@
 import React, { useState } from "react";
 import { Link } from "react-scroll";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+import KaltmannLogo from "../assets/kaltmann_logo.png";
+
+const menuVars = {
+  initial: {
+    scaleY: 0,
+  },
+  animate: {
+    scaleY: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.12, 0, 0.39, 0],
+    },
+  },
+  exit: {
+    scaleY: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 0, 0.36, 0],
+    },
+  },
+};
+
+const mobileLinkVars = {
+  initial: {
+    y: "30vh",
+    transition: {
+      duration: 0.5,
+    },
+  },
+  open: {
+    y: 0,
+    transition: {
+      duration: 1,
+    },
+  },
+};
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const handleClick = () => setNav(!nav);
 
   return (
-    <header className="h-[80px] w-full fixed flex justify-between items-center px-4 bg-[#ebdb04] text-gray-900 border-b-2 border-gray-900">
+    <header className="h-[80px] w-full fixed flex justify-between items-center px-4 bg-[#ebdb04] text-gray-900 border-b-2 border-gray-900 z-50">
       <div>
-        <p
-          className={!nav ? "block text-[24px] font-semibold ml-16" : "hidden"}
-        >
-          generatorowo.pl
-        </p>
+        <Link to="home" smooth={true} duration={500}>
+          <img
+            src={KaltmannLogo}
+            alt=""
+            className="w-[200px] ml-16 cursor-pointer"
+          />
+        </Link>
       </div>
 
       <ul className="hidden md:flex text-[16px] font-bold mr-16">
@@ -46,19 +85,86 @@ const Navbar = () => {
         )}
       </div>
 
-      <ul
-        className={
-          !nav
-            ? "hidden"
-            : "hamburger absolute top-0 left-0 w-full h-screen bg-[#ebdb04] flex flex-col justify-center items-center"
-        }
-      >
-        <li className="py-6 text-4xl">Moje Zasilanie</li>
-        <li className="py-6 text-4xl">Wiedza</li>
-        <li className="py-6 text-4xl">Generatory</li>
-        <li className="py-6 text-4xl">Akcesoria</li>
-        <li className="py-6 text-4xl">Części zamienne</li>
-      </ul>
+      <AnimatePresence>
+        {nav && (
+          <motion.ul
+            variants={menuVars}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className={
+              "hamburger absolute top-0 left-0 w-full h-screen bg-[#ebdb04] flex flex-col justify-center items-center origin-top"
+            }
+          >
+            <div></div>
+            <div className="overflow-hidden">
+              <motion.div
+                variants={mobileLinkVars}
+                initial="initial"
+                animate="open"
+              >
+                <li className="py-5 text-4xl font-semibold">
+                  <Link
+                    onClick={handleClick}
+                    to="moje-zasilanie"
+                    smooth={true}
+                    duration={500}
+                  >
+                    MOJE ZASILANIE
+                  </Link>
+                </li>
+              </motion.div>
+            </div>
+            <div className="overflow-hidden">
+              <motion.div
+                variants={mobileLinkVars}
+                initial="initial"
+                animate="open"
+              >
+                <li className="py-5 text-4xl font-semibold">
+                  <Link
+                    onClick={handleClick}
+                    to="wiedza"
+                    smooth={true}
+                    duration={500}
+                  >
+                    WIEDZA
+                  </Link>
+                </li>
+              </motion.div>
+            </div>
+            <div className="overflow-hidden">
+              <motion.div
+                variants={mobileLinkVars}
+                initial="initial"
+                animate="open"
+              >
+                {" "}
+                <li className="py-5 text-4xl font-semibold">GENERATORY</li>
+              </motion.div>
+            </div>
+            <div className="overflow-hidden">
+              {" "}
+              <motion.div
+                variants={mobileLinkVars}
+                initial="initial"
+                animate="open"
+              >
+                <li className="py-5 text-4xl font-semibold">AKCESORIA</li>
+              </motion.div>
+            </div>
+            <div className="overflow-hidden">
+              <motion.div
+                variants={mobileLinkVars}
+                initial="initial"
+                animate="open"
+              >
+                <li className="py-5 text-4xl font-semibold">CZĘŚCI ZAMIENNE</li>
+              </motion.div>
+            </div>
+          </motion.ul>
+        )}
+      </AnimatePresence>
 
       <div className="hidden"></div>
     </header>

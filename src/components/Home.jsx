@@ -1,10 +1,14 @@
 import React from "react";
 import GeneratorPhoto from "../assets/mainpage_generator.png";
 import { TypeAnimation } from "react-type-animation";
+import HomePagePhoto from "../assets/homepage_generator.png";
 
 const Home = () => {
   return (
-    <div className="w-full h-screen flex items-center bg-gradient-to-r from-[#000300] to-[#292929]">
+    <div
+      name="home"
+      className="w-full h-screen flex items-center bg-gradient-to-b from-[#000300] to-[#0a0a0a]"
+    >
       <div className="w-[55%] h-screen text-white flex flex-col items-center justify-center">
         <h1 className="text-[60px] text-[#ebdb04] font-bold">
           ZASIL SIĘ JUŻ DZIŚ!
@@ -29,8 +33,9 @@ const Home = () => {
       <div className="w-[45%] mt-[80px]">
         <img
           src={GeneratorPhoto}
+          // Alternatively GeneratorPhoto, not yet decided in the production phase
           alt=""
-          className="w-full h-screen object-cover rounded-l-[200px]"
+          className="h-screen object-cover rounded-l-[200px]"
         />
       </div>
     </div>

@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import MyPower from "./components/MyPower";
 import { Knowledge } from "./components/Knowledge";
+import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Home />
       <MyPower />
       <Knowledge />
+      <ContactForm />
       <Footer />
     </div>
   );
