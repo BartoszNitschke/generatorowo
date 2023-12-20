@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { BiSolidCarGarage } from "react-icons/bi";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import Generator1 from "../assets/test_generator1.png";
+import Generator2 from "../assets/test_generator2.png";
+import Generator3 from "../assets/test_generator3.png";
 
 const devicesPower = {
   kaloryfer: 100,
@@ -17,6 +20,7 @@ const MojeZasilanie = () => {
   const [sumPower, setSumPower] = useState(0);
   const [chosenDevices, setChosenDevices] = useState([]);
   const [newDevice, setNewDevice] = useState("");
+  const [showGenerators, setShowGenerators] = useState(false);
 
   const handleCalculatorVisibility = () => {
     setIsCalculatorVisible(!isCalculatorVisible);
@@ -48,10 +52,14 @@ const MojeZasilanie = () => {
     });
   };
 
+  const handleSearchVisibility = () => {
+    setShowGenerators(!showGenerators);
+  };
+
   return (
     <div
       name="moje-zasilanie"
-      className="w-full max-h-[1300px] min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#131313] flex flex-col justify-center items-center"
+      className="w-full min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#131313] flex flex-col justify-center items-center"
     >
       <h1 className="text-[#ebdb04] text-[48px] py-16 font-bold">
         Moje zasilanie
@@ -219,6 +227,19 @@ const MojeZasilanie = () => {
                   {sumPower}
                 </p>
               </div>
+              <button
+                onClick={handleSearchVisibility}
+                className="bg-white border-2 border-black text-black px-2 cursor-pointer"
+              >
+                Wyszukaj
+              </button>
+              {showGenerators && (
+                <div className="flex gap-x-4 mt-4">
+                  <img src={Generator1} alt="" className="w-[200px]" />
+                  <img src={Generator2} alt="" className="w-[200px]" />
+                  <img src={Generator3} alt="" className="w-[200px]" />
+                </div>
+              )}
               <p className="py-2">
                 // Ta część będzie po prawej stronie razem z listą co zaznaczono
                 i odpowiednimi mocami dla każego urządzenia, w przypadku dodania
