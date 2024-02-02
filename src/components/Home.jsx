@@ -19,7 +19,7 @@ const Home = () => {
         <p className="text-[32px] mt-6 ">
           Zainstaluj generator na{" "}
           <TypeAnimation
-            sequence={["DOMU", 1000, "GARAŻU", 1000, "FIRMIE", 1000]}
+            sequence={["DOMU", 1000, "FIRMIE", 1000, "BUDOWIE", 1000]}
             wrapper="span"
             speed={250}
             repeat={Infinity}
