@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { FaHome, FaPlus } from "react-icons/fa";
+import { FaHome, FaChevronDown, FaPlus, FaMinus } from "react-icons/fa";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
-import { MdConstruction } from "react-icons/md";
+import { MdConstruction, MdDelete } from "react-icons/md";
+import { db } from "../lib/firebaseConfig.js";
+import { getDocs, collection } from "firebase/firestore";
 import Generator1 from "../assets/test_generator1.png";
 import Generator2 from "../assets/test_generator2.png";
 import Generator3 from "../assets/test_generator3.png";
 
 const devicesPower = {
-  Lodówka: 350,
+  Lodówka: 900,
   Mikrofalówka: 1000,
   Zmywarka: 1800,
   Ekspres: 1000,
@@ -22,7 +24,19 @@ const devicesPower = {
   Żarówka: 60,
 };
 
+async function fetchDataFromFirestore() {
+  const querySnapshot = await getDocs(collection(db, "devices"));
+
+  const data = [];
+  querySnapshot.forEach((doc) => {
+    data.push({ id: doc.id, ...doc.data() });
+  });
+
+  return data;
+}
+
 const MojeZasilanie = () => {
+  const [devicesData, setDevicesData] = useState([]);
   const [isCalculatorVisible, setIsCalculatorVisible] = useState(false);
   const [sumPower, setSumPower] = useState(
     JSON.parse(localStorage.getItem("sumPower")) || 0
@@ -33,6 +47,7 @@ const MojeZasilanie = () => {
   const [addedDevices, setAddedDevices] = useState(
     JSON.parse(localStorage.getItem("addedDevices")) || []
   );
+  const [selectedOption, setSelectedOption] = useState("");
   const [newDeviceName, setNewDeviceName] = useState("");
   const [newDevicePower, setNewDevicePower] = useState("");
   const [showGenerators, setShowGenerators] = useState(false);
@@ -41,6 +56,14 @@ const MojeZasilanie = () => {
     setIsCalculatorVisible(!isCalculatorVisible);
     setShowGenerators(false);
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await fetchDataFromFirestore();
+      setDevicesData(data);
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("addedDevices", JSON.stringify(addedDevices));
@@ -58,37 +81,86 @@ const MojeZasilanie = () => {
     e.preventDefault();
     if (newDevicePower > 1) {
       setSumPower((prevSum) => prevSum + newDevicePower);
-      setAddedDevices([
-        ...addedDevices,
-        { name: newDeviceName, power: newDevicePower },
+      setChosenDevices([
+        ...chosenDevices,
+        { name: newDeviceName, power: newDevicePower, quantity: 1 },
       ]);
       setNewDeviceName("");
       setNewDevicePower("");
     }
   };
 
-  const handleDeviceDelete = (deviceToDelete) => {
-    const updatedDevices = addedDevices.filter(
-      (device) => device !== deviceToDelete
+  const handleSelectChange = (e) => {
+    const selectedDeviceName = e.target.value;
+
+    const deviceExists = chosenDevices.some(
+      (device) => device.name === selectedDeviceName
     );
-    setAddedDevices(updatedDevices);
-    setSumPower((prevSum) => {
-      return prevSum - deviceToDelete.power;
-    });
+
+    if (!deviceExists && selectedDeviceName !== "") {
+      const selectedDeviceData = devicesData.find(
+        (device) => device.name === selectedDeviceName
+      );
+      const power = selectedDeviceData ? selectedDeviceData.power : 0;
+      const category = selectedDeviceData ? selectedDeviceData.category : "";
+
+      setChosenDevices([
+        ...chosenDevices,
+        { name: selectedDeviceName, power, category, quantity: 1 },
+      ]);
+
+      setSumPower((prevSuma) => prevSuma + power);
+    }
   };
 
-  const handleCheckboxChange = (nazwaUrzadzenia, isChecked) => {
-    setSumPower((prevSuma) => {
-      if (isChecked) {
-        setChosenDevices([...chosenDevices, nazwaUrzadzenia]);
-        return prevSuma + devicesPower[nazwaUrzadzenia];
-      } else {
-        setChosenDevices((prevDevices) =>
-          prevDevices.filter((device) => device !== nazwaUrzadzenia)
-        );
-        return prevSuma - devicesPower[nazwaUrzadzenia];
-      }
-    });
+  const handleDeviceDelete = (deviceToDelete) => {
+    const updatedDevices = chosenDevices.filter(
+      (device) => device.name !== deviceToDelete.name
+    );
+
+    setChosenDevices(updatedDevices);
+    setSumPower(
+      (prevSum) => prevSum - deviceToDelete.power * deviceToDelete.quantity
+    );
+  };
+
+  const increaseQuantity = (deviceToUpdate) => {
+    const index = chosenDevices.findIndex(
+      (device) => device.name === deviceToUpdate.name
+    );
+
+    const updatedDevices = [...chosenDevices];
+    updatedDevices[index].quantity++;
+    setChosenDevices(updatedDevices);
+    setSumPower((prevSum) => prevSum + deviceToUpdate.power);
+  };
+
+  const decreaseQuantity = (deviceToUpdate) => {
+    const index = chosenDevices.findIndex(
+      (device) => device.name === deviceToUpdate.name
+    );
+
+    if (chosenDevices[index].quantity > 1) {
+      const updatedDevices = [...chosenDevices];
+      updatedDevices[index].quantity--;
+
+      const newQuantity = updatedDevices[index].quantity;
+      const updatedDevice = updatedDevices[index];
+      setChosenDevices(updatedDevices);
+
+      setSumPower((prevSum) => prevSum - deviceToUpdate.power);
+    } else {
+      // Usuń urządzenie z tablicy chosenDevices
+      const updatedDevices = chosenDevices.filter(
+        (device) => device.name !== deviceToUpdate.name
+      );
+      setChosenDevices(updatedDevices);
+
+      // Odejmij moc urządzenia pomnożoną przez jego ilość
+      setSumPower(
+        (prevSum) => prevSum - deviceToUpdate.power * deviceToUpdate.quantity
+      );
+    }
   };
 
   const handleSearchVisibility = () => {
@@ -157,377 +229,225 @@ const MojeZasilanie = () => {
       </div>
 
       {isCalculatorVisible && (
-        <div className="flex-col text-center">
-          <p className="text-[#ebdb04] text-[32px] font-semibold mt-[100px]">
+        <div className=" text-center w-full max-w-[85%] mx-auto">
+          <p className="text-[#ebdb04] text-[32px] font-semibold mt-[100px] ">
             Twój kalkulator mocy
           </p>
-          <div className="flex flex-col">
-            <div className="pt-12 flex justify-center text-gray-300 max-w-[85%] mx-auto">
-              <div className="flex flex-col w-[50%] items-center">
-                <p className="text-[24px] font-semibold pb-8 ">
-                  Wybierz urządzenia
-                </p>
-                <div className="flex items-center flex-wrap gap-6">
-                  <input
-                    type="checkbox"
-                    name="fridge"
-                    id="fridge"
-                    className="mr-4 cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Lodówka")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Lodówka", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="fridge"
-                    className={
-                      chosenDevices.includes("Lodówka")
-                        ? "before:content-['] before:w-6 before:h-6 before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300  before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Lodówka</span>
-                  </label>
+          <div className="pt-12 flex justify-center text-gray-300">
+            <div className="flex flex-col items-center w-[50%]">
+              <p className="text-[24px] font-semibold pb-8 text-[#ebdb04]">
+                Wybierz urządzenia
+              </p>
+              <div className="flex flex-col items-center gap-y-6">
+                {devicesData && (
+                  <div>
+                    <form>
+                      <div className="flex justify-center relative w-[500px] h-[50px]">
+                        <select
+                          className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer"
+                          onChange={handleSelectChange}
+                          value={"RTV AGD"}
+                        >
+                          <option value="" className="cursor-pointer">
+                            RTV AGD
+                          </option>
+                          {devicesData.map((device) => {
+                            if (device.category === "RTVAGD") {
+                              return (
+                                <option value={device.name}>
+                                  {device.name}
+                                </option>
+                              );
+                            } else {
+                              return <></>;
+                            }
+                          })}
+                        </select>
+                        <div className="w-[50px] h-full absolute right-0 flex items-center justify-center pointer-events-none">
+                          <FaChevronDown className=""></FaChevronDown>
+                        </div>
+                      </div>
+                    </form>
+                    <form>
+                      <div className="flex justify-center relative w-[500px] h-[50px] mt-4">
+                        <select
+                          className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer"
+                          onChange={handleSelectChange}
+                          value={"Narzędzia"}
+                        >
+                          <option value="" className="cursor-pointer">
+                            Narzędzia
+                          </option>
+                          {devicesData.map((device) => {
+                            if (device.category === "narzędzia") {
+                              return (
+                                <option value={device.name}>
+                                  {device.name}
+                                </option>
+                              );
+                            } else {
+                              return <></>;
+                            }
+                          })}
+                        </select>
+                        <div className="w-[50px] h-full absolute right-0 flex items-center justify-center pointer-events-none">
+                          <FaChevronDown className=""></FaChevronDown>
+                        </div>
+                      </div>
+                    </form>
 
-                  <input
-                    type="checkbox"
-                    name="microwave"
-                    id="microwave"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Mikrofalówka")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Mikrofalówka", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="microwave"
-                    className={
-                      chosenDevices.includes("Mikrofalówka")
-                        ? "before:content-['] before:w-6 before:h-6 before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300  before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Mikrofalówka</span>
-                  </label>
+                    <form>
+                      <div className="flex justify-center relative w-[500px] h-[50px] mt-4">
+                        <select
+                          className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer"
+                          onChange={handleSelectChange}
+                          value={"Ogrzewanie"}
+                        >
+                          <option value="" className="cursor-pointer">
+                            Ogrzewanie
+                          </option>
+                          {devicesData.map((device) => {
+                            if (device.category === "ogrzewanie") {
+                              return (
+                                <option value={device.name}>
+                                  {device.name}
+                                </option>
+                              );
+                            } else {
+                              return <></>;
+                            }
+                          })}
+                        </select>
+                        <div className="w-[50px] h-full absolute right-0 flex items-center justify-center pointer-events-none">
+                          <FaChevronDown className=""></FaChevronDown>
+                        </div>
+                      </div>
+                    </form>
 
-                  <input
-                    type="checkbox"
-                    name="dishwasher"
-                    id="dishwasher"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Zmywarka")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Zmywarka", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="dishwasher"
-                    className={
-                      chosenDevices.includes("Zmywarka")
-                        ? "before:content-['] before:w-6 before:h-6 before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300 before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Zmywarka</span>
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    name="coffeeMachine"
-                    id="coffeeMachine"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Ekspres")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Ekspres", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="coffeeMachine"
-                    className={
-                      chosenDevices.includes("Ekspres")
-                        ? "before:content-['] before:w-6 before:h-6  before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300  before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Ekspres do kawy</span>
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    name="tv"
-                    id="tv"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Telewizor")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Telewizor", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="tv"
-                    className={
-                      chosenDevices.includes("Telewizor")
-                        ? "before:content-['] before:w-6 before:h-6 before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300 before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Telewizor</span>
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    name="pc"
-                    id="pc"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Komputer")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Komputer", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="pc"
-                    className={
-                      chosenDevices.includes("Komputer")
-                        ? "before:content-['] before:w-6 before:h-6  before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300 before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Komputer</span>
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    name="laptop"
-                    id="laptop"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Laptop")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Laptop", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="laptop"
-                    className={
-                      chosenDevices.includes("Laptop")
-                        ? "before:content-['] before:w-6 before:h-6   before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300  before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Laptop</span>
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    name="iron"
-                    id="iron"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Żelazko")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Żelazko", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="iron"
-                    className={
-                      chosenDevices.includes("Żelazko")
-                        ? "before:content-['] before:w-6 before:h-6  before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300  before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Żelazko</span>
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    name="vaccum"
-                    id="vaccum"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Odkurzacz")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Odkurzacz", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="vaccum"
-                    className={
-                      chosenDevices.includes("Odkurzacz")
-                        ? "before:content-['] before:w-6 before:h-6 before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300 before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Odkurzacz</span>
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    name="hairDryer"
-                    id="hairDryer"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Suszarka")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Suszarka", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="hairDryer"
-                    className={
-                      chosenDevices.includes("Suszarka")
-                        ? "before:content-['] before:w-6 before:h-6 before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300 before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Suszarka</span>
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    name="nightLamp"
-                    id="nightLamp"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Lampka")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Lampka", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="nightLamp"
-                    className={
-                      chosenDevices.includes("Lampka")
-                        ? "before:content-['] before:w-6 before:h-6 before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300 before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Lampka nocna</span>
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    name="kettler"
-                    id="kettler"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Czajnik")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Czajnik", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="kettler"
-                    className={
-                      chosenDevices.includes("Czajnik")
-                        ? "before:content-['] before:w-6 before:h-6 before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300  before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Czajnik</span>
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    name="bulb"
-                    id="bulb"
-                    className="cursor-pointer opacity-0 absolute"
-                    checked={chosenDevices.includes("Żarówka")}
-                    onChange={(e) =>
-                      handleCheckboxChange("Żarówka", e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor="bulb"
-                    className={
-                      chosenDevices.includes("Żarówka")
-                        ? "before:content-['] before:w-6 before:h-6 before:rounded-xl flex before:bg-yellow-300 hover:cursor-pointer  before:transition-all before:duration-150"
-                        : "before:content-['] before:w-6 before:h-6 before:border-2 before:border-gray-300  before:rounded-xl flex  hover:cursor-pointer before:transition-all before:duration-150"
-                    }
-                  >
-                    <span className="ml-2 ">Żarówka</span>
-                  </label>
-                </div>
-
-                <p className="text-[24px] font-semibold py-4">
-                  Dodaj własne urządzenie
-                </p>
-                <form
-                  onSubmit={(e) => addNewDevice(e)}
-                  className="flex flex-col items-center"
-                >
-                  <div className="flex">
-                    <input
-                      type="text"
-                      placeholder="Nazwa"
-                      value={newDeviceName}
-                      onChange={(e) => setNewDeviceName(e.target.value)}
-                      className="text-[18px] text-black rounded-md outline-none py-1 px-1 bg-gray-200"
-                      required={true}
-                    />
-                    <input
-                      type="number"
-                      placeholder="Moc (W)"
-                      className="mx-3 w-[100px] text-[18px] text-black rounded-md outline-none py-1 px-1 bg-gray-200"
-                      value={newDevicePower}
-                      onChange={(e) =>
-                        setNewDevicePower(parseInt(e.target.value))
-                      }
-                      required={true}
-                    />
+                    <form>
+                      <div className="flex justify-center relative w-[500px] h-[50px] mt-4">
+                        <select
+                          className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer"
+                          onChange={handleSelectChange}
+                          value={"Inne"}
+                        >
+                          <option value="" className="cursor-pointer">
+                            Inne
+                          </option>
+                          {devicesData.map((device) => {
+                            if (device.category === "inne") {
+                              return (
+                                <option value={device.name}>
+                                  {device.name}
+                                </option>
+                              );
+                            } else {
+                              return <></>;
+                            }
+                          })}
+                        </select>
+                        <div className="w-[50px] h-full absolute right-0 flex items-center justify-center pointer-events-none">
+                          <FaChevronDown className=""></FaChevronDown>
+                        </div>
+                      </div>
+                    </form>
                   </div>
-
-                  <button className="mt-4 bg-[#ebdb04] text-[24px] text-gray-900 font-semibold px-5 py-1 rounded-xl cursor-pointer ">
-                    Dodaj
-                  </button>
-                </form>
+                )}
               </div>
 
-              <div className="w-[10%]"></div>
-
-              <div className="flex flex-col w-[30%] relative">
-                <p className="text-[24px] font-semibold">Wybrane</p>
-                <p className="text-[16px]">(Kliknij aby usunąć)</p>
-                <ul className="pt-6">
-                  {chosenDevices.map((device) => {
-                    return (
-                      <li
-                        className="text-[24px] hover:text-red-500 cursor-pointer"
-                        onClick={() => handleCheckboxChange(device, false)}
-                      >
-                        {device} - {devicesPower[device] + " W"}
-                      </li>
-                    );
-                  })}
-                  {addedDevices.map((device) => {
-                    return (
-                      <li
-                        className="text-[24px] hover:text-red-500 cursor-pointer"
-                        onClick={() => handleDeviceDelete(device)}
-                      >
-                        {device.name} - {device.power} W
-                      </li>
-                    );
-                  })}
-                </ul>
-                <div className="mt-4 flex flex-col justify-center items-center text-[24px] py-2 text-center">
-                  <div className="flex">
-                    <p className="text-gray-300">Twoja moc: </p>
-                    <p className="w-[120px] bg-gray-200 border-2 border-black text-gray-900 ml-2">
-                      {sumPower} W
-                    </p>
-                  </div>
-                  <button
-                    onClick={handleSearchVisibility}
-                    className="mt-5 bg-[#ebdb04] text-[24px] text-gray-900 font-semibold px-5 py-1 rounded-xl cursor-pointer"
-                  >
-                    Wyszukaj
-                  </button>
+              <p className="text-[24px] font-semibold py-4 mt-8 text-[#ebdb04]">
+                Dodaj własne urządzenie
+              </p>
+              <form
+                onSubmit={(e) => addNewDevice(e)}
+                className="flex flex-col items-center"
+              >
+                <div className="flex">
+                  <input
+                    type="text"
+                    placeholder="Nazwa"
+                    value={newDeviceName}
+                    onChange={(e) => setNewDeviceName(e.target.value)}
+                    className="text-[18px] text-black rounded-md outline-none py-1 px-1 bg-gray-200"
+                    required={true}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Moc (W)"
+                    className="mx-3 w-[100px] text-[18px] text-black rounded-md outline-none py-1 px-1 bg-gray-200"
+                    value={newDevicePower}
+                    onChange={(e) =>
+                      setNewDevicePower(parseInt(e.target.value))
+                    }
+                    required={true}
+                  />
                 </div>
-              </div>
+
+                <button className="mt-4 bg-[#ebdb04] text-[24px] text-gray-900 font-semibold px-5 py-1 rounded-xl cursor-pointer ">
+                  Dodaj
+                </button>
+              </form>
             </div>
 
-            {showGenerators && (
-              <div className="flex gap-x-4 mt-14 justify-center">
-                <img src={Generator1} alt="" className="w-[200px]" />
-                <img src={Generator2} alt="" className="w-[200px]" />
-                <img src={Generator3} alt="" className="w-[200px]" />
+            <div className="w-[12%]"></div>
+
+            <div className="flex flex-col relative w-[38%] ">
+              <p className="text-[24px] font-semibold text-[#ebdb04]">
+                Wybrane
+              </p>
+              <ul className="pt-6 text-left">
+                {chosenDevices &&
+                  chosenDevices.map((device, index) => {
+                    return (
+                      <li className="text-[24px] flex justify-between gap-x-10 py-1 border-b-[1px] border-gray-200 select-none">
+                        <p>{device.name}</p>
+                        <div className="flex gap-x-5">
+                          <p className="">{device.power} W</p>
+                          <div className="flex items-center gap-x-2 ">
+                            <p className="text-[#ebdb04]">x{device.quantity}</p>
+                            <FaMinus
+                              onClick={() => decreaseQuantity(device)}
+                              className="cursor-pointer hover:text-white transition-all duration-75"
+                            ></FaMinus>
+                            <FaPlus
+                              onClick={() => increaseQuantity(device)}
+                              className="cursor-pointer hover:text-white transition-all duration-75"
+                            ></FaPlus>
+                          </div>
+                        </div>
+                      </li>
+                    );
+                  })}
+                {chosenDevices.length === 0 && (
+                  <p className="text-center text-[18px] font-semibold py-3">
+                    Nie dodano jeszcze urządzeń
+                  </p>
+                )}
+              </ul>
+              <div className="mt-4 flex flex-col justify-center items-center text-[24px] py-2 text-center">
+                <div className="flex">
+                  <p className="text-gray-300">Twoja moc: </p>
+                  <p className="w-[120px] bg-gray-200 border-2 border-black text-gray-900 ml-2">
+                    {sumPower} W
+                  </p>
+                </div>
+                <button
+                  onClick={handleSearchVisibility}
+                  className="mt-5 bg-[#ebdb04] text-[24px] text-gray-900 font-semibold px-5 py-1 rounded-xl cursor-pointer"
+                >
+                  Wyszukaj
+                </button>
               </div>
-            )}
+            </div>
           </div>
+
+          {showGenerators && (
+            <div className="flex gap-x-4 mt-14 justify-center">
+              <img src={Generator1} alt="" className="w-[200px]" />
+              <img src={Generator2} alt="" className="w-[200px]" />
+              <img src={Generator3} alt="" className="w-[200px]" />
+            </div>
+          )}
         </div>
       )}
     </div>
