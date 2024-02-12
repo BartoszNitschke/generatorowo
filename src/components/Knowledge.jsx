@@ -7,7 +7,7 @@ export const Knowledge = () => {
       className="w-full min-h-screen bg-gradient-to-b from-[#131313] to-[#0a0a0a] flex justify-center items-start flex-col"
     >
       <div className="w-[90%] mx-auto text-white">
-        <h1 className="text-[#ebdb04] text-[48px] font-bold mt-[150px]">
+        <h1 className="text-[#ebdb04] text-[48px] font-bold">
           Co musisz wiedzieć...
         </h1>
         <h2 className="text-[#ebdb04] text-[28px] font-semibold mt-16">
