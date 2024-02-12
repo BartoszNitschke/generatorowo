@@ -24,3 +24,5 @@ yarn-error.log*
 
 #settings
 /.vscode
+
+#later /lib/firebaseConfig.js
