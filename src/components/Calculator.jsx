@@ -251,20 +251,23 @@ const Calculator = () => {
                   placeholder="Nazwa"
                   value={newDeviceName}
                   onChange={(e) => setNewDeviceName(e.target.value)}
-                  className="text-[18px] text-black rounded-md outline-none py-1 px-1 bg-gray-200"
+                  className="text-[22px] text-black rounded-md outline-none py-2 px-4 bg-gray-200"
                   required={true}
                 />
                 <input
                   type="number"
                   placeholder="Moc (W)"
-                  className="mx-3 w-[100px] text-[18px] text-black rounded-md outline-none py-1 px-1 bg-gray-200"
+                  className="mx-3 w-[140px] text-[22px] text-black rounded-md outline-none py-2 px-4 bg-gray-200"
                   value={newDevicePower}
                   onChange={(e) => setNewDevicePower(parseInt(e.target.value))}
                   required={true}
                 />
               </div>
 
-              <button className="mt-4 bg-[#ebdb04] text-[24px] text-gray-900 font-semibold px-5 py-1 rounded-xl cursor-pointer ">
+              <button
+                onClick={handleSearchVisibility}
+                className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group"
+              >
                 Dodaj
               </button>
             </form>
@@ -312,7 +315,7 @@ const Calculator = () => {
               </div>
               <button
                 onClick={handleSearchVisibility}
-                className="mt-5 bg-[#ebdb04] text-[24px] text-gray-900 font-semibold px-5 py-1 rounded-xl cursor-pointer"
+                className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group"
               >
                 Wyszukaj
               </button>
