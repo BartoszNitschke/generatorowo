@@ -20,10 +20,10 @@ async function fetchDataFromFirestore() {
 const Calculator = () => {
   const [devicesData, setDevicesData] = useState([]);
   const [sumPower, setSumPower] = useState(
-    JSON.parse(localStorage.getItem("sumPower")) || 0
+    JSON.parse(localStorage.getItem("power")) || 0
   );
   const [chosenDevices, setChosenDevices] = useState(
-    JSON.parse(localStorage.getItem("chosenDevices")) || []
+    JSON.parse(localStorage.getItem("devices")) || []
   );
   const [newDeviceName, setNewDeviceName] = useState("");
   const [newDevicePower, setNewDevicePower] = useState("");
@@ -38,11 +38,11 @@ const Calculator = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("chosenDevices", JSON.stringify(chosenDevices));
+    localStorage.setItem("devices", JSON.stringify(chosenDevices));
   }, [chosenDevices]);
 
   useEffect(() => {
-    localStorage.setItem("sumPower", JSON.stringify(sumPower));
+    localStorage.setItem("power", JSON.stringify(sumPower));
   }, [sumPower]);
 
   const addNewDevice = (e) => {
