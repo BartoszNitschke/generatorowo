@@ -20,10 +20,10 @@ async function fetchDataFromFirestore() {
 const Calculator = () => {
   const [devicesData, setDevicesData] = useState([]);
   const [sumPower, setSumPower] = useState(
-    JSON.parse(localStorage.getItem("power")) || 0
+    JSON.parse(localStorage.getItem("powerCompany")) || 0
   );
   const [chosenDevices, setChosenDevices] = useState(
-    JSON.parse(localStorage.getItem("devices")) || []
+    JSON.parse(localStorage.getItem("devicesCompany")) || []
   );
   const [newDeviceName, setNewDeviceName] = useState("");
   const [newDevicePower, setNewDevicePower] = useState("");
@@ -38,11 +38,11 @@ const Calculator = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("devices", JSON.stringify(chosenDevices));
+    localStorage.setItem("devicesCompany", JSON.stringify(chosenDevices));
   }, [chosenDevices]);
 
   useEffect(() => {
-    localStorage.setItem("power", JSON.stringify(sumPower));
+    localStorage.setItem("powerCompany", JSON.stringify(sumPower));
   }, [sumPower]);
 
   const addNewDevice = (e) => {
@@ -122,7 +122,7 @@ const Calculator = () => {
     <div className="w-full min-h-screen bg-gradient-to-b from-[#131313] to-[#131313]">
       <div className=" text-center w-full max-w-[85%] mx-auto">
         <p className="text-[#ebdb04] text-[32px] font-semibold  ">
-          Twój kalkulator mocy - Dom
+          Twój kalkulator mocy - Firma
         </p>
         <div className="pt-12 flex justify-center text-gray-300">
           <div className="flex flex-col items-center w-[50%]">
@@ -140,12 +140,12 @@ const Calculator = () => {
                         value={"RTV AGD"}
                       >
                         <option value="" className="cursor-pointer">
-                          Domowe
+                          Firmowe
                         </option>
                         {devicesData.map((device) => {
                           if (
                             device.category === "RTVAGD" ||
-                            device.category === "domowe"
+                            device.category === "firmowe"
                           ) {
                             return (
                               <option value={device.name}>{device.name}</option>
