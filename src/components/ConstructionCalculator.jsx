@@ -20,10 +20,10 @@ async function fetchDataFromFirestore() {
 const Calculator = () => {
   const [devicesData, setDevicesData] = useState([]);
   const [sumPower, setSumPower] = useState(
-    JSON.parse(localStorage.getItem("power")) || 0
+    JSON.parse(localStorage.getItem("powerConstruction")) || 0
   );
   const [chosenDevices, setChosenDevices] = useState(
-    JSON.parse(localStorage.getItem("devices")) || []
+    JSON.parse(localStorage.getItem("devicesConstruction")) || []
   );
   const [newDeviceName, setNewDeviceName] = useState("");
   const [newDevicePower, setNewDevicePower] = useState("");
@@ -38,11 +38,11 @@ const Calculator = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("devices", JSON.stringify(chosenDevices));
+    localStorage.setItem("devicesConstruction", JSON.stringify(chosenDevices));
   }, [chosenDevices]);
 
   useEffect(() => {
-    localStorage.setItem("power", JSON.stringify(sumPower));
+    localStorage.setItem("powerConstruction", JSON.stringify(sumPower));
   }, [sumPower]);
 
   const addNewDevice = (e) => {
@@ -122,7 +122,7 @@ const Calculator = () => {
     <div className="w-full min-h-[80vh] bg-gradient-to-b from-[#131313] to-[#131313]">
       <div className=" text-center w-full max-w-[85%] mx-auto">
         <p className="text-[#ebdb04] text-[32px] font-semibold  ">
-          Twój kalkulator mocy - Dom
+          Twój kalkulator mocy - Budowa
         </p>
         <div className="pt-12 flex justify-center text-gray-300">
           <div className="flex flex-col items-center w-[50%]">
@@ -140,13 +140,10 @@ const Calculator = () => {
                         value={"RTV AGD"}
                       >
                         <option value="" className="cursor-pointer">
-                          Domowe
+                          Budowlane
                         </option>
                         {devicesData.map((device) => {
-                          if (
-                            device.category === "RTVAGD" ||
-                            device.category === "domowe"
-                          ) {
+                          if (device.category === "RTVAGD") {
                             return (
                               <option value={device.name}>{device.name}</option>
                             );
@@ -171,7 +168,10 @@ const Calculator = () => {
                           Narzędzia
                         </option>
                         {devicesData.map((device) => {
-                          if (device.category === "narzędzia") {
+                          if (
+                            device.category === "narzędzia" ||
+                            device.category === "budowlane"
+                          ) {
                             return (
                               <option value={device.name}>{device.name}</option>
                             );

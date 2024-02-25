@@ -3,6 +3,8 @@ import { FaHome, FaChevronDown, FaPlus, FaMinus } from "react-icons/fa";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { MdConstruction, MdDelete } from "react-icons/md";
 import Calculator from "./Calculator";
+import CompanyCalculator from "./CompanyCalculator";
+import ConstructionCalculator from "./ConstructionCalculator";
 
 const TopContent = ({ handleCalculatorVisibility }) => (
   <div
@@ -15,7 +17,7 @@ const TopContent = ({ handleCalculatorVisibility }) => (
     <div className="w-full flex justify-center gap-x-10">
       <div
         className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none z"
-        onClick={handleCalculatorVisibility}
+        onClick={() => handleCalculatorVisibility("home")}
       >
         <FaHome className="text-[64px] mt-4" />
         <p className="mt-3 text-[24px] font-semibold">Dom</p>
@@ -32,7 +34,7 @@ const TopContent = ({ handleCalculatorVisibility }) => (
 
       <div
         className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none"
-        onClick={handleCalculatorVisibility}
+        onClick={() => handleCalculatorVisibility("company")}
       >
         <HiOutlineOfficeBuilding className="text-[64px] mt-4" />
         <p className="mt-3 text-[24px] font-semibold">Firma</p>
@@ -49,7 +51,7 @@ const TopContent = ({ handleCalculatorVisibility }) => (
 
       <div
         className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none"
-        onClick={handleCalculatorVisibility}
+        onClick={() => handleCalculatorVisibility("construction")}
       >
         <MdConstruction className="text-[64px] mt-4" />
         <p className="mt-3 text-[24px] font-semibold">Budowa</p>
@@ -68,16 +70,18 @@ const TopContent = ({ handleCalculatorVisibility }) => (
 );
 
 const MojeZasilanie = () => {
-  const [isCalculatorVisible, setIsCalculatorVisible] = useState(false);
+  const [calculatorType, setCalculatorType] = useState(null);
 
-  const handleCalculatorVisibility = () => {
-    setIsCalculatorVisible(!isCalculatorVisible);
+  const handleCalculatorVisibility = (type) => {
+    setCalculatorType(type);
   };
 
   return (
     <>
       <TopContent handleCalculatorVisibility={handleCalculatorVisibility} />
-      {isCalculatorVisible && <Calculator />}
+      {calculatorType === "home" && <Calculator />}
+      {calculatorType === "company" && <CompanyCalculator />}
+      {calculatorType === "construction" && <ConstructionCalculator />}
     </>
   );
 };

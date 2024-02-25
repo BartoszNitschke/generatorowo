@@ -1,113 +1,408 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Knowledge = () => {
+  // variables for displaying desired answers for users
+  const [powerGenerators, setPowerGenerators] = useState(false);
+  const [inductionGenerators, setInductionGenerators] = useState(false);
+  const [inverterGenerators, setInverterGenerators] = useState(false);
+  const [powerCounting, setPowerCounting] = useState(false);
+  const [whichGenerator, setWhichGenerator] = useState(false);
+  const [generatorTests, setGeneratorTests] = useState(false);
+
+  const dropdownVars = {
+    initial: {
+      scaleY: 0,
+    },
+    animate: {
+      scaleY: 1,
+      transition: {
+        duration: 0,
+        ease: [0.12, 0, 0.39, 0],
+      },
+    },
+    exit: {
+      scaleY: 0,
+      transition: {
+        duration: 0,
+      },
+    },
+  };
+
   return (
     <div
       name="wiedza"
-      className="w-full min-h-screen bg-gradient-to-b from-[#131313] to-[#0a0a0a] flex justify-center items-start flex-col"
+      className="w-full min-h-screen bg-gradient-to-b from-[#131313] to-[#0a0a0a] flex  items-start flex-col pt-[110px]"
     >
       <div className="w-[90%] mx-auto text-white">
         <h1 className="text-[#ebdb04] text-[48px] font-bold">
           Co musisz wiedzieć...
         </h1>
-        <h2 className="text-[#ebdb04] text-[28px] font-semibold mt-16">
-          GENERATORY PRĄDOTWÓRCZE - ZASTOSOWANIE ORAZ PODŁĄCZENIE
-        </h2>
-        <p className="mt-3 text-[18px]">
-          Wszystkie generatory marki{" "}
-          <span className="font-semibold">KALTMANN</span> posiadają AVR, który
-          odpowiada za stabilizację napięcia na gniazdach zasilających. W
-          generatorach jedno fazowych napięcie 230V i częstotliwość 50 Hz W
-          generatorach trój fazowych napięcia 230/400 V i częstotliwość 50 Hz Za
-          częstotliwość 50 Hz odpowiadają obroty wirnika (3000 obrotów).
-        </p>
-        <p className="mt-3 text-[18px] text-[#ebdb04] font-semibold">
-          Każdy generator przed uruchomieniem musi mieć podłączone uziemienie do
-          zacisku uziemienia na panelu !!! Nie podłączenie uziemienia grozi
-          porażeniem prądem elektrycznym, uszkodzeniem odbiorników do niego
-          podłączonych lub generatora.
-        </p>
+        <div className="text-gray-300 text-[24px] font-semibold mt-16 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800">
+          <div
+            className="flex justify-between items-center cursor-pointer"
+            onClick={() => setPowerGenerators(!powerGenerators)}
+          >
+            <p
+              className={
+                powerGenerators
+                  ? "text-[#ebdb04] transform transition-colors duration-500"
+                  : "transform transition-colors duration-500"
+              }
+            >
+              GENERATORY PRĄDOTWÓRCZE - ZASTOSOWANIE ORAZ PODŁĄCZENIE
+            </p>
+            {powerGenerators ? (
+              <FaChevronUp
+                className={
+                  powerGenerators
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500"
+                }
+              ></FaChevronUp>
+            ) : (
+              <FaChevronDown
+                className={
+                  powerGenerators
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500"
+                }
+              ></FaChevronDown>
+            )}
+          </div>
+          <AnimatePresence>
+            {powerGenerators && (
+              <motion.div
+                variants={dropdownVars}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="origin-top"
+              >
+                <p className="mt-5 text-[18px]">
+                  Wszystkie generatory marki{" "}
+                  <span className="font-semibold">KALTMANN</span> posiadają AVR,
+                  który odpowiada za stabilizację napięcia na gniazdach
+                  zasilających. W generatorach jedno fazowych napięcie 230V i
+                  częstotliwość 50 Hz W generatorach trój fazowych napięcia
+                  230/400 V i częstotliwość 50 Hz Za częstotliwość 50 Hz
+                  odpowiadają obroty wirnika (3000 obrotów).
+                </p>
 
-        <h2 className="text-[#ebdb04] text-[28px] font-semibold mt-16">
-          GENERATORY INDUKCYJNE - Z PRĄDNICĄ WYSOKONAPIĘCIOWĄ
-        </h2>
-        <p className="mt-3 text-[18px]">
-          Pod generator można podłączyć każde urządzenie nie posiadające
-          zaawansowanej elektroniki z pominięciem starego tupu urządzeń z
-          zasilaczami transformatorowymi.
-        </p>
+                <p className="mt-3 pb-3 text-[18px] text-gray-300 font-semibold">
+                  Każdy generator przed uruchomieniem musi mieć podłączone
+                  uziemienie do zacisku uziemienia na panelu !!! Nie podłączenie
+                  uziemienia grozi porażeniem prądem elektrycznym, uszkodzeniem
+                  odbiorników do niego podłączonych lub generatora.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-        <h2 className="text-[#ebdb04] text-[28px] font-semibold mt-16">
-          GENERATORY INWERTEROWE - Z PRĄDNICĄ NISKONAPIĘCIOWĄ I PRZETWORNICĄ
-          IMPULSOWĄ (INWERTEREM)
-        </h2>
-        <p className="mt-3 text-[18px]">
-          Generatory stworzone z myślą o najnowszych urządzeniach
-          elektronicznych typu: komputery, piece sterowane komputerem, kasy
-          fiskalne, telewizory LCD,LED, żarówki LED i ENERGOOSZCZĘDNE, można
-          także podłączać elektro narzędzia.
-        </p>
+        <div className="text-gray-300 text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800 ">
+          <div
+            className="flex justify-between items-center cursor-pointer"
+            onClick={() => setInductionGenerators(!inductionGenerators)}
+          >
+            <p
+              className={
+                inductionGenerators
+                  ? "text-[#ebdb04] transform transition-colors duration-500"
+                  : "transform transition-colors duration-500"
+              }
+            >
+              GENERATORY INDUKCYJNE - Z PRĄDNICĄ WYSOKONAPIĘCIOWĄ
+            </p>
+            {inductionGenerators ? (
+              <FaChevronUp
+                className={
+                  inductionGenerators
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500 cursor-pointer"
+                }
+              ></FaChevronUp>
+            ) : (
+              <FaChevronDown
+                className={
+                  inductionGenerators
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500 cursor-pointer"
+                }
+              ></FaChevronDown>
+            )}
+          </div>
+          <AnimatePresence>
+            {inductionGenerators && (
+              <motion.div
+                variants={dropdownVars}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="origin-top"
+              >
+                <p className="mt-5 text-[18px]">
+                  Pod generator można podłączyć każde urządzenie nie posiadające
+                  zaawansowanej elektroniki z pominięciem starego tupu urządzeń
+                  z zasilaczami transformatorowymi.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-        <h2 className="text-[#ebdb04] text-[28px] font-semibold mt-16">
-          PRZELICZANIE MOCY PRZY OBCIĄŻENIU GENERATORA
-        </h2>
-        <p className="mt-3 text-[18px]">
-          Każde urządzenie, które posiada silnik elektryczny w momencie startu
-          ma chwilowy pobór prądu minimum dwa razy większy niż ten, który jest
-          podawany na tabliczce znamionowej. W zależności od typu silnika
-          (indukcyjny z cewką lub kondensatorem rozruchowym, szczotkowy z
-          kondensatorem) może mieć chwilowo nawet do 3,5 razy większy pobór
-          prądu. Trzeba pamiętać o tym że pobór prądu przez urządzenie może być
-          zmienny w zależności od obciążenia urządzenia, ale nie większy niż 3,5
-          razy od tego co jest podane na tabliczce znamionowej urządzenia. W
-          szczególnych przypadkach i przy maksymalnym obciążeniu urządzenia prąd
-          szczytowy może być nawet do sześciu razy większy niż deklarowany przez
-          producenta urządzenia. Nie dotyczy to urządzeń: czajniki elektryczne,
-          grzejniki z grzałką ale bez dmuchawy, w tych urządzeniach pobór prądu
-          jest zawsze stały i nie zmienny. (urządzenia oporowe). W generatorach
-          trójfazowych gniazdo 230V wyprowadzone jest z jednej z trzech faz i
-          jest na nim jedna trzecia mocy całkowitej generatora(jeśli generator
-          trój fazowy ma 6kW) to na gnieździe 230V będzie 2kW.
-        </p>
+        <div className="text-gray-300 text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800">
+          <div
+            className="flex justify-between items-center cursor-pointer"
+            onClick={() => setInverterGenerators(!inverterGenerators)}
+          >
+            <p
+              className={
+                inverterGenerators
+                  ? "text-[#ebdb04] transform transition-colors duration-500"
+                  : "transform transition-colors duration-500"
+              }
+            >
+              GENERATORY INWERTEROWE - Z PRĄDNICĄ NISKONAPIĘCIOWĄ I PRZETWORNICĄ
+              IMPULSOWĄ (INWERTEREM)
+            </p>
+            {inverterGenerators ? (
+              <FaChevronUp
+                className={
+                  inverterGenerators
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500 cursor-pointer"
+                }
+              ></FaChevronUp>
+            ) : (
+              <FaChevronDown
+                className={
+                  inverterGenerators
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500 cursor-pointer"
+                }
+              ></FaChevronDown>
+            )}
+          </div>
+          <AnimatePresence>
+            {inverterGenerators && (
+              <motion.div
+                variants={dropdownVars}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="origin-top"
+              >
+                <p className="mt-5 text-[18px]">
+                  Generatory stworzone z myślą o najnowszych urządzeniach
+                  elektronicznych typu: komputery, piece sterowane komputerem,
+                  kasy fiskalne, telewizory LCD,LED, żarówki LED i
+                  ENERGOOSZCZĘDNE, można także podłączać elektro narzędzia.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-        <p className="mt-3 text-[18px] text-[#ebdb04] font-semibold">
-          Zawsze przed uruchomieniem generatora trzeba się upewnić że nie jest
-          do niego podłączony żaden z odbiorników !!!
-        </p>
+        <div className="text-gray-300 text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800">
+          <div
+            className="flex justify-between items-center cursor-pointer"
+            onClick={() => setPowerCounting(!powerCounting)}
+          >
+            <p
+              className={
+                powerCounting
+                  ? "text-[#ebdb04] transform transition-colors duration-500"
+                  : "transform transition-colors duration-500"
+              }
+            >
+              PRZELICZANIE MOCY PRZY OBCIĄŻENIU GENERATORA
+            </p>
+            {powerCounting ? (
+              <FaChevronUp
+                className={
+                  powerCounting
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500 cursor-pointer"
+                }
+              ></FaChevronUp>
+            ) : (
+              <FaChevronDown
+                className={
+                  powerCounting
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500 cursor-pointer"
+                }
+              ></FaChevronDown>
+            )}
+          </div>
+          <AnimatePresence>
+            {powerCounting && (
+              <motion.div
+                variants={dropdownVars}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="origin-top"
+              >
+                <p className="mt-5 text-[18px]">
+                  Każde urządzenie, które posiada silnik elektryczny w momencie
+                  startu ma chwilowy pobór prądu minimum dwa razy większy niż
+                  ten, który jest podawany na tabliczce znamionowej. W
+                  zależności od typu silnika (indukcyjny z cewką lub
+                  kondensatorem rozruchowym, szczotkowy z kondensatorem) może
+                  mieć chwilowo nawet do 3,5 razy większy pobór prądu. Trzeba
+                  pamiętać o tym że pobór prądu przez urządzenie może być
+                  zmienny w zależności od obciążenia urządzenia, ale nie większy
+                  niż 3,5 razy od tego co jest podane na tabliczce znamionowej
+                  urządzenia. W szczególnych przypadkach i przy maksymalnym
+                  obciążeniu urządzenia prąd szczytowy może być nawet do sześciu
+                  razy większy niż deklarowany przez producenta urządzenia. Nie
+                  dotyczy to urządzeń: czajniki elektryczne, grzejniki z grzałką
+                  ale bez dmuchawy, w tych urządzeniach pobór prądu jest zawsze
+                  stały i nie zmienny. (urządzenia oporowe). W generatorach
+                  trójfazowych gniazdo 230V wyprowadzone jest z jednej z trzech
+                  faz i jest na nim jedna trzecia mocy całkowitej
+                  generatora(jeśli generator trój fazowy ma 6kW) to na gnieździe
+                  230V będzie 2kW.
+                </p>
+                <p className="mt-3 text-[18px] text-[#ebdb04] font-semibold">
+                  Zawsze przed uruchomieniem generatora trzeba się upewnić że
+                  nie jest do niego podłączony żaden z odbiorników !!!
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-        <p className="mt-3 text-[18px]">
-          Generator prądotwórczy jest alternatywnym źródłem zasilania. Używanym
-          w czasie zaniku energii elektrycznej dostarczanej przez lokalnego
-          dostawcę. Generatory z prądnicą indukcyjną służą do zasilania urządzeń
-          elektrycznych: wiertarki, szlifierki, piły, przecinarki oraz
-          urządzenia elektroniczne starszego typu. Generatory inwerterowe służą
-          do zasilania wszystkich wyżej wymienionych urządzeń ale przede
-          wszystkim do urządzeń elektronicznych nowszej generacji a w
-          szczególności sterowniki pieców, komputery, zasilacze awaryjne UPS,
-          przyrządy medyczne wspomagające funkcje życiowe. Wszystkie generatory
-          z silnikiem spalinowym chłodzonym powietrzem nie są przystosowane do
-          pracy ciągłej. Generator po wypaleniu całego zbiornika paliwa powinien
-          zostać wyłączony na przynajmniej pół godziny w celu ostygnięcia. Po
-          ostygnięciu generatora możemy uzupełnić paliwo w zbiorniku, sprawdzić
-          poziom oleju, wyczyścić generator i ponownie go uruchomić. Utrzymanie
-          generatora w czystości, regularne wymiany oleju oraz utrzymanie.
-        </p>
+        <div className="text-gray-300 text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800">
+          <div
+            className="flex justify-between items-center cursor-pointer"
+            onClick={() => setWhichGenerator(!whichGenerator)}
+          >
+            <p
+              className={
+                whichGenerator
+                  ? "text-[#ebdb04] transform transition-colors duration-500"
+                  : "transform transition-colors duration-500"
+              }
+            >
+              KTÓRY GENERATOR WYBRAĆ?
+            </p>
+            {whichGenerator ? (
+              <FaChevronUp
+                className={
+                  whichGenerator
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500 cursor-pointer"
+                }
+              ></FaChevronUp>
+            ) : (
+              <FaChevronDown
+                className={
+                  whichGenerator
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500 cursor-pointer"
+                }
+              ></FaChevronDown>
+            )}
+          </div>
+          <AnimatePresence>
+            {whichGenerator && (
+              <motion.div
+                variants={dropdownVars}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="origin-top"
+              >
+                <p className="mt-5 text-[18px]">
+                  Generator prądotwórczy jest alternatywnym źródłem zasilania.
+                  Używanym w czasie zaniku energii elektrycznej dostarczanej
+                  przez lokalnego dostawcę. Generatory z prądnicą indukcyjną
+                  służą do zasilania urządzeń elektrycznych: wiertarki,
+                  szlifierki, piły, przecinarki oraz urządzenia elektroniczne
+                  starszego typu. Generatory inwerterowe służą do zasilania
+                  wszystkich wyżej wymienionych urządzeń ale przede wszystkim do
+                  urządzeń elektronicznych nowszej generacji a w szczególności
+                  sterowniki pieców, komputery, zasilacze awaryjne UPS,
+                  przyrządy medyczne wspomagające funkcje życiowe. Wszystkie
+                  generatory z silnikiem spalinowym chłodzonym powietrzem nie są
+                  przystosowane do pracy ciągłej. Generator po wypaleniu całego
+                  zbiornika paliwa powinien zostać wyłączony na przynajmniej pół
+                  godziny w celu ostygnięcia. Po ostygnięciu generatora możemy
+                  uzupełnić paliwo w zbiorniku, sprawdzić poziom oleju,
+                  wyczyścić generator i ponownie go uruchomić. Utrzymanie
+                  generatora w czystości, regularne wymiany oleju oraz
+                  utrzymanie.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-        <h2 className="text-[#ebdb04] text-[28px] font-semibold mt-16">
-          GENERATORY MARKI <span className="font-semibold">KALTMANN</span> SĄ
-          WYRYWKOWO TESTOWANE!
-        </h2>
-        <p className="mt-3 text-[18px] pb-4">
-          Każdy z testowanych generatorów przechodzi test silnika spalinowego
-          oraz prądnicy i instalacji elektrycznej. Czas całego testu to 400
-          roboczo godzin. Podczas wykonywania testu generator ma wymieniany olej
-          oraz czyszczony/ wymieniany filtr powietrza, świece zapłonową zgodnie
-          z instrukcją użytkownika. Przy testach prądnicy użyto elementu
-          oporowego o wartości 60% mocy prądnicy generatora w trakcie długiego
-          testu i podczas chwilowego testu obciążenie 100% mocy prądnicy.
-        </p>
+        <div className="text-gray-300 text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800">
+          <div
+            className="flex justify-between items-center cursor-pointer"
+            onClick={() => setGeneratorTests(!generatorTests)}
+          >
+            <p
+              className={
+                generatorTests
+                  ? "text-[#ebdb04] transform transition-colors duration-500"
+                  : "transform transition-colors duration-500"
+              }
+            >
+              JAK WYGLĄDAJĄ TESTY?
+            </p>
+            {generatorTests ? (
+              <FaChevronUp
+                className={
+                  generatorTests
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500 cursor-pointer"
+                }
+              ></FaChevronUp>
+            ) : (
+              <FaChevronDown
+                className={
+                  generatorTests
+                    ? "text-[#ebdb04] transform transition-colors duration-500 cursor-pointer"
+                    : "transform transition-colors duration-500 cursor-pointer"
+                }
+              ></FaChevronDown>
+            )}
+          </div>
+          <AnimatePresence>
+            {generatorTests && (
+              <motion.div
+                variants={dropdownVars}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="origin-top"
+              >
+                <p className="mt-5 text-[18px] text-[#ebdb04] font-semibold">
+                  GENERATORY MARKIKALTMANN SĄ WYRYWKOWO TESTOWANE!
+                </p>
+                <p className="mt-3 text-[18px]">
+                  Każdy z testowanych generatorów przechodzi test silnika
+                  spalinowego oraz prądnicy i instalacji elektrycznej. Czas
+                  całego testu to 400 roboczo godzin. Podczas wykonywania testu
+                  generator ma wymieniany olej oraz czyszczony/ wymieniany filtr
+                  powietrza, świece zapłonową zgodnie z instrukcją użytkownika.
+                  Przy testach prądnicy użyto elementu oporowego o wartości 60%
+                  mocy prądnicy generatora w trakcie długiego testu i podczas
+                  chwilowego testu obciążenie 100% mocy prądnicy.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
         <div className="flex items-center justify-center">
-          <button className="mt-10 relative md:inline-flex items-center justify-center w-[250px] h-[60px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group">
+          <button className="mt-16 relative md:inline-flex items-center justify-center w-[250px] h-[60px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group">
             <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-y-full bg-jade group-hover:translate-y-0 ease">
               <svg
                 width="45px"
