@@ -119,7 +119,7 @@ const Calculator = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-b from-[#131313] to-[#131313]">
+    <div className="w-full min-h-[80vh] bg-gradient-to-b from-[#131313] to-[#131313]">
       <div className=" text-center w-full max-w-[85%] mx-auto">
         <p className="text-[#ebdb04] text-[32px] font-semibold  ">
           Twój kalkulator mocy - Dom
@@ -267,10 +267,7 @@ const Calculator = () => {
                 />
               </div>
 
-              <button
-                onClick={handleSearchVisibility}
-                className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group"
-              >
+              <button className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group">
                 Dodaj
               </button>
             </form>
