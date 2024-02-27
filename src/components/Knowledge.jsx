@@ -36,7 +36,7 @@ export const Knowledge = () => {
       className="w-full min-h-screen bg-gradient-to-b from-[#131313] to-[#0a0a0a] flex  items-start flex-col pt-[110px]"
     >
       <div className="w-[90%] mx-auto text-white">
-        <h1 className="text-[#ebdb04] text-[48px] font-bold">
+        <h1 className="text-[#ebdb04] text-[48px] font-bold text-center">
           Co musisz wiedzieć...
         </h1>
         <div className="text-gray-300 text-[24px] font-semibold mt-16 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800">
