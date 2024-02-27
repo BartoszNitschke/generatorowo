@@ -13,16 +13,18 @@ const ContactForm = () => {
 
   return (
     <div className="h-screen w-full  bg-gradient-to-b from-[#0a0a0a] to-[#070707] flex flex-col items-center justify-center">
-      <h1 className="text-[#ebdb04] text-[48px] font-bold">Zapytaj nas</h1>
       <motion.form
         action=""
-        className="mt-8 flex flex-col w-[38%]"
+        className="flex flex-col w-[38%]"
         ref={ref}
         style={{ scale: scaleProgres, opacity: opacityProgres }}
       >
+        <h1 className="text-[#ebdb04] text-[48px] font-bold text-center ">
+          Zapytaj nas
+        </h1>
         <input
           type="text"
-          className="bg-white text-black text-[24px] px-4 py-3 rounded-xl shadow-md shadow-gray-500"
+          className=" mt-8 bg-white text-black text-[24px] px-4 py-3 rounded-xl shadow-md shadow-gray-500"
           placeholder="E-mail"
         />
 
