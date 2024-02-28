@@ -295,8 +295,28 @@ const Calculator = () => {
                 />
               </div>
 
-              <button className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group">
-                Dodaj
+              <button className="mt-6 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full group">
+                <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-jade group-hover:translate-x-0 ease">
+                  <svg
+                    width="40px"
+                    height="40px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M12.2929 4.29289C12.6834 3.90237 13.3166 3.90237 13.7071 4.29289L20.7071 11.2929C21.0976 11.6834 21.0976 12.3166 20.7071 12.7071L13.7071 19.7071C13.3166 20.0976 12.6834 20.0976 12.2929 19.7071C11.9024 19.3166 11.9024 18.6834 12.2929 18.2929L17.5858 13H4C3.44772 13 3 12.5523 3 12C3 11.4477 3.44772 11 4 11H17.5858L12.2929 5.70711C11.9024 5.31658 11.9024 4.68342 12.2929 4.29289Z"
+                      fill="#ebdb04"
+                      stroke="#ebdb04"
+                      strokeWidth="0.5"
+                    />
+                  </svg>
+                </span>
+                <span class="absolute flex items-center justify-center w-full h-full text-jade transition-all duration-300 transform group-hover:translate-x-full ease">
+                  Dodaj
+                </span>
               </button>
             </form>
           </div>
@@ -364,11 +384,27 @@ const Calculator = () => {
                   {sumPower} W
                 </p>
               </div> */}
-              <button
-                onClick={handleSearchVisibility}
-                className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group "
-              >
-                Wyszukaj
+              <button className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full group">
+                <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-y-full bg-jade group-hover:translate-y-0 ease">
+                  <svg
+                    width="40px"
+                    height="40px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
+                      stroke="#ebdb04"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span class="absolute flex items-center justify-center w-full h-full text-jade transition-all duration-300 transform group-hover:translate-y-full ease">
+                  Wyszukaj
+                </span>
               </button>
             </div>
           </div>
