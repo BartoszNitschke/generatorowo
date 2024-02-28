@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div
       name="home"
-      className="w-full h-screen flex items-center bg-gradient-to-b from-[#000300] to-[#0a0a0a]"
+      className="w-full h-screen flex items-center bg-gradient-to-b from-[#000300] to-[#0a0a0a] py-[100px]"
     >
       <motion.div
         initial={{ y: -600 }}

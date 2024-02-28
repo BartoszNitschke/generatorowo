@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { FaChevronDown, FaPlus, FaMinus } from "react-icons/fa";
+import React, { useState, useEffect, useContext } from "react";
+import { CalculatorContext } from "../context/CalculatorContext.js";
+import { FaChevronDown, FaPlus, FaMinus, FaHome } from "react-icons/fa";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import { MdConstruction } from "react-icons/md";
+import { FiChevronsRight, FiChevronsLeft } from "react-icons/fi";
+import { VscDebugRestart } from "react-icons/vsc";
 import { db } from "../lib/firebaseConfig.js";
 import { getDocs, collection } from "firebase/firestore";
+import { Link } from "react-scroll";
 import Generator1 from "../assets/test_generator1.png";
 import Generator2 from "../assets/test_generator2.png";
 import Generator3 from "../assets/test_generator3.png";
@@ -18,6 +24,8 @@ async function fetchDataFromFirestore() {
 }
 
 const Calculator = () => {
+  const { setCalculatorType } = useContext(CalculatorContext);
+
   const [devicesData, setDevicesData] = useState([]);
   const [sumPower, setSumPower] = useState(
     JSON.parse(localStorage.getItem("power")) || 0
@@ -119,12 +127,32 @@ const Calculator = () => {
   };
 
   return (
-    <div className="w-full min-h-[80vh] bg-gradient-to-b from-[#131313] to-[#131313]">
+    <div
+      name="moje-zasilanie"
+      className="w-full min-h-[80vh] bg-gradient-to-b from-[#0a0a0a] to-[#131313] pt-[180px]"
+    >
       <div className=" text-center w-full max-w-[85%] mx-auto">
-        <p className="text-[#ebdb04] text-[32px] font-semibold  ">
-          Twój kalkulator mocy - Dom
-        </p>
-        <div className="pt-12 flex justify-center text-gray-300">
+        <div className="flex justify-center items-center gap-x-4">
+          <FiChevronsLeft
+            className="text-gray-300 text-[78px] cursor-pointer hover:text-gray-100"
+            onClick={() => setCalculatorType("construction")}
+          ></FiChevronsLeft>
+          <MdConstruction
+            className="text-gray-300 text-[78px] bg-gray-800 p-2 rounded-xl cursor-pointer hover:text-gray-100"
+            onClick={() => setCalculatorType("construction")}
+          ></MdConstruction>
+          <FaHome className="text-[#ebdb04] text-[78px] bg-gray-800 p-2 rounded-xl cursor-pointer"></FaHome>
+          <HiOutlineOfficeBuilding
+            className="text-gray-300 text-[78px] bg-gray-800 p-2 rounded-xl cursor-pointer hover:text-gray-100"
+            onClick={() => setCalculatorType("company")}
+          ></HiOutlineOfficeBuilding>
+          <FiChevronsRight
+            className="text-gray-300 text-[78px] cursor-pointer hover:text-gray-100"
+            onClick={() => setCalculatorType("company")}
+          ></FiChevronsRight>
+        </div>
+
+        <div className="pt-16 flex justify-center text-gray-300">
           <div className="flex flex-col items-center w-[50%]">
             <p className="text-[24px] font-semibold pb-8 text-[#ebdb04]">
               Wybierz urządzenia
@@ -135,7 +163,7 @@ const Calculator = () => {
                   <form>
                     <div className="flex justify-center relative w-[500px] h-[50px]">
                       <select
-                        className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer"
+                        className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer rounded-md"
                         onChange={handleSelectChange}
                         value={"RTV AGD"}
                       >
@@ -163,7 +191,7 @@ const Calculator = () => {
                   <form>
                     <div className="flex justify-center relative w-[500px] h-[50px] mt-4">
                       <select
-                        className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer"
+                        className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer rounded-md"
                         onChange={handleSelectChange}
                         value={"Narzędzia"}
                       >
@@ -189,7 +217,7 @@ const Calculator = () => {
                   <form>
                     <div className="flex justify-center relative w-[500px] h-[50px] mt-4">
                       <select
-                        className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer"
+                        className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer rounded-md"
                         onChange={handleSelectChange}
                         value={"Ogrzewanie"}
                       >
@@ -215,7 +243,7 @@ const Calculator = () => {
                   <form>
                     <div className="flex justify-center relative w-[500px] h-[50px] mt-4">
                       <select
-                        className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer"
+                        className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer rounded-md"
                         onChange={handleSelectChange}
                         value={"Inne"}
                       >
@@ -254,13 +282,13 @@ const Calculator = () => {
                   placeholder="Nazwa"
                   value={newDeviceName}
                   onChange={(e) => setNewDeviceName(e.target.value)}
-                  className="text-[22px] text-black rounded-md outline-none py-2 px-4 bg-gray-200"
+                  className="text-[22px] text-white rounded-md outline-none py-2 px-4 bg-gray-800 placeholder-gray-200"
                   required={true}
                 />
                 <input
                   type="number"
                   placeholder="Moc (W)"
-                  className="mx-3 w-[140px] text-[22px] text-black rounded-md outline-none py-2 px-4 bg-gray-200"
+                  className="mx-3 w-[140px] text-[22px] text-white rounded-md outline-none py-2 px-4 bg-gray-800 placeholder-gray-200 appearance-none"
                   value={newDevicePower}
                   onChange={(e) => setNewDevicePower(parseInt(e.target.value))}
                   required={true}
@@ -277,14 +305,29 @@ const Calculator = () => {
 
           <div className="flex flex-col relative w-[38%] ">
             <p className="text-[24px] font-semibold text-[#ebdb04]">Wybrane</p>
-            <ul className="pt-6 text-left">
+            <ul className="mt-6 text-left ">
+              <li className="text-[24px] flex justify-between items-center gap-x-10 pt-2 pb-5 bg-gray-800 px-4 rounded-t-xl text-[#ebdb04] font-semibold">
+                <p className="">Urządzenie</p>
+                <div className="flex gap-x-6 items-center">
+                  <p>Moc</p>
+                  <p>Ilość</p>
+                  <VscDebugRestart
+                    className="text-[28px] text-gray-300 cursor-pointer hover:text-white"
+                    onClick={() => {
+                      setChosenDevices([]);
+                      setSumPower(0);
+                    }}
+                  ></VscDebugRestart>
+                </div>
+              </li>
+
               {chosenDevices &&
                 chosenDevices.map((device, index) => {
                   return (
-                    <li className="text-[24px] flex justify-between gap-x-10 py-1 border-b-[1px] border-gray-200 select-none">
+                    <li className="text-[24px] flex justify-between gap-x-10 py-2 select-none bg-gray-800 px-4 border-b-[1px] border-slate-600 mt-0 last:border-none">
                       <p>{device.name}</p>
-                      <div className="flex gap-x-5">
-                        <p className="">{device.power} W</p>
+                      <div className="flex gap-x-5 items-center">
+                        <p className=" whitespace-nowrap">{device.power} W</p>
                         <div className="flex items-center gap-x-2 ">
                           <p className="text-[#ebdb04]">x{device.quantity}</p>
                           <FaMinus
@@ -301,21 +344,29 @@ const Calculator = () => {
                   );
                 })}
               {chosenDevices.length === 0 && (
-                <p className="text-center text-[18px] font-semibold py-3">
+                <p className="text-center text-[18px] font-semibold py-3 bg-gray-800">
                   Nie dodano jeszcze urządzeń
                 </p>
               )}
             </ul>
+
+            <div className="text-[24px] flex justify-center gap-x-10 py-2 border-b-[1px] border-slate-900 bg-gray-800 pb-5 rounded-b-xl pt-8">
+              <div className="flex gap-x-2 font-semibold">
+                <p className="text-[#ebdb04]">Twoja moc:</p>
+                <p className="">{sumPower} W</p>
+              </div>
+            </div>
+
             <div className="mt-4 flex flex-col justify-center items-center text-[24px] py-2 text-center">
-              <div className="flex">
-                <p className="text-gray-300">Twoja moc: </p>
-                <p className="w-[120px] bg-gray-200 border-2 border-black text-gray-900 ml-2">
+              {/* <div className="flex">
+                <p className="text-[#ebdb04] font-semibold">Twoja moc: </p>
+                <p className="w-[120px] bg-gray-800 text-gray-300 ml-2 rounded-md">
                   {sumPower} W
                 </p>
-              </div>
+              </div> */}
               <button
                 onClick={handleSearchVisibility}
-                className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group"
+                className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group "
               >
                 Wyszukaj
               </button>
