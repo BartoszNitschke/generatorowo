@@ -295,7 +295,7 @@ const Calculator = () => {
                 />
               </div>
 
-              <button className="mt-6 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full group">
+              <button className="mt-6 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full shadow-md shadow-gray-700 group">
                 <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-jade group-hover:translate-x-0 ease">
                   <svg
                     width="40px"
@@ -384,7 +384,7 @@ const Calculator = () => {
                   {sumPower} W
                 </p>
               </div> */}
-              <button className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full group">
+              <button className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full shadow-md shadow-gray-700 group">
                 <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-y-full bg-jade group-hover:translate-y-0 ease">
                   <svg
                     width="40px"
