@@ -1,15 +1,20 @@
 import React from "react";
 import GeneratorPhoto from "../assets/mainpage_generator.png";
 import { TypeAnimation } from "react-type-animation";
-import HomePagePhoto from "../assets/homepage_generator.png";
+import { motion } from "framer-motion";
 
 const Home = () => {
   return (
     <div
       name="home"
-      className="w-full h-screen flex items-center bg-gradient-to-b from-[#000300] to-[#0a0a0a]"
+      className="w-full h-screen flex items-center bg-gradient-to-b from-[#000300] to-[#0a0a0a] py-[100px]"
     >
-      <div className="w-[55%] h-screen text-white flex flex-col items-center justify-center">
+      <motion.div
+        initial={{ y: -600 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 1.4 }}
+        className="w-[55%] h-screen text-white flex flex-col items-center justify-center"
+      >
         <h1 className="text-[60px] text-[#ebdb04] font-bold">
           ZASIL SIĘ JUŻ DZIŚ!
         </h1>
@@ -17,9 +22,9 @@ const Home = () => {
           Indywidualne podejście do każdego klienta
         </p>
         <p className="text-[32px] mt-6 ">
-          Zainstaluj generator na{" "}
+          Zainstaluj generator{" "}
           <TypeAnimation
-            sequence={["DOMU", 1000, "FIRMIE", 1000, "BUDOWIE", 1000]}
+            sequence={["w DOMU", 1000, "w FIRMIE", 1000, "na BUDOWIE", 1000]}
             wrapper="span"
             speed={250}
             repeat={Infinity}
@@ -54,7 +59,7 @@ const Home = () => {
           </span>
           {/* <span class="relative invisible"></span> */}
         </button>
-      </div>
+      </motion.div>
       <div className="w-[45%] mt-[80px]">
         <img
           src={GeneratorPhoto}
