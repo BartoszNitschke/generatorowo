@@ -24,73 +24,70 @@ const TopContent = () => {
   return (
     <div
       name="moje-zasilanie"
-      className="w-full bg-gradient-to-b from-[#0a0a0a] to-[#131313] flex flex-col justify-center items-center py-[80px]"
+      className="w-full min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#131313] md:flex flex-col justify-center items-center md:py-[80px]"
     >
       <motion.div
         ref={ref}
         style={{ scale: scaleProgres, opacity: opacityProgres }}
       >
-        <h1 className="text-[#ebdb04] text-[48px] py-16 font-bold text-center">
+        <h1 className="text-[#ebdb04] text-[48px] py-12 md:py-16 font-bold text-center">
           Moje zasilanie
         </h1>
-        <div className="w-full flex justify-center gap-x-10">
+        <div className="w-full flex md:flex-row flex-col justify-center md:gap-x-10 gap-y-8 md:gap-y-0">
           <Link to="moje-zasilanie" smooth={true} duration={500}>
             <div
-              className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none z"
+              className="w-[85%] md:w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex md:flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none mx-auto md:mx-0 gap-x-4"
               onClick={() => setCalculatorType("home")}
             >
-              <FaHome className="text-[64px] mt-4" />
-              <p className="mt-3 text-[24px] font-semibold">Dom</p>
-              <p className="mt-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-                commodi doloribus aperiam tenetur repellat nulla quas, labore
-                est illo vero atque alias molestias voluptas blanditiis,
-                eligendi, aspernatur et ducimus eius! Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Eum, fugit vel atque eveniet fuga,
-                officia velit repudiandae distinctio vitae obcaecati suscipit
-                aut odit repellendus labore. Tempora eaque explicabo dolor
-                officia.
-              </p>
+              <FaHome className="text-[128px] mt-4" />
+              <div>
+                <p className="mt-3 text-[24px] font-semibold">Dom</p>
+
+                <p className="mt-3 font-semibold">Przykładowe sprzęty:</p>
+                <p className="mt-2">Lodówka</p>
+                <p className="mt-2">Mikrofalówka</p>
+                <p className="mt-2">Komputer</p>
+                <p className="mt-2 hidden md:block">Czajnik</p>
+                <p className="mt-2 hidden md:block">Ekspres do kawy</p>
+              </div>
             </div>
           </Link>
 
           <Link to="moje-zasilanie" smooth={true} duration={500}>
             <div
-              className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none"
+              className="w-[85%] md:w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex md:flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none mx-auto md:mx-0 gap-x-4"
               onClick={() => setCalculatorType("company")}
             >
-              <HiOutlineOfficeBuilding className="text-[64px] mt-4" />
-              <p className="mt-3 text-[24px] font-semibold">Firma</p>
-              <p className="mt-4">
-                Tutaj zobaczymy jakieś hasła albo istotne rzeczy jedno pod
-                drugim, zamiast całego tego tekstu tenetur repellat nulla quas,
-                labore est illo vero atque alias molestias voluptas blanditiis,
-                eligendi, aspernatur et ducimus eius! Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Eum, fugit vel atque eveniet fuga,
-                officia velit repudiandae distinctio vitae obcaecati suscipit
-                aut odit repellendus labore. Tempora eaque explicabo dolor
-                officia.
-              </p>
+              <HiOutlineOfficeBuilding className="text-[128px] mt-4" />
+              <div>
+                <p className="mt-3 text-[24px] font-semibold">Firma</p>
+
+                <p className="mt-3 font-semibold">Przykładowe sprzęty:</p>
+                <p className="mt-2">Drukarka</p>
+                <p className="mt-2">Niszczarka</p>
+                <p className="mt-2">Monitor</p>
+                <p className="mt-2 hidden md:block">Czajnik</p>
+                <p className="mt-2 hidden md:block">Ekspres do kawy</p>
+              </div>
             </div>
           </Link>
 
           <Link to="moje-zasilanie" smooth={true} duration={500}>
             <div
-              className="max-w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none"
+              className="w-[85%] md:w-[320px] bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 flex md:flex-col justify-center items-center p-4 rounded-3xl shadow-lg shadow-gray-700 text-center hover:scale-105 cursor-pointer transition-transform duration-300 text-gray-300 select-none mx-auto md:mx-0 gap-x-4"
               onClick={() => setCalculatorType("construction")}
             >
-              <MdConstruction className="text-[64px] mt-4" />
-              <p className="mt-3 text-[24px] font-semibold">Budowa</p>
-              <p className="mt-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-                commodi doloribus aperiam tenetur repellat nulla quas, labore
-                est illo vero atque alias molestias voluptas blanditiis,
-                eligendi, aspernatur et ducimus eius! Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Eum, fugit vel atque eveniet fuga,
-                officia velit repudiandae distinctio vitae obcaecati suscipit
-                aut odit repellendus labore. Tempora eaque explicabo dolor
-                officia.
-              </p>
+              <MdConstruction className="text-[128px] mt-4" />
+              <div>
+                <p className="mt-3 text-[24px] font-semibold">Budowa</p>
+
+                <p className="mt-3 font-semibold">Przykładowe sprzęty:</p>
+                <p className="mt-2">Betoniarka</p>
+                <p className="mt-2">Spawarka</p>
+                <p className="mt-2">Młot wyburzeniowy</p>
+                <p className="mt-2 hidden md:block">Szlifierka do tynków</p>
+                <p className="mt-2 hidden md:block">Zgrzewarka do rur</p>
+              </div>
             </div>
           </Link>
         </div>

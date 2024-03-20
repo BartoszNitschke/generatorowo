@@ -7,21 +7,21 @@ const Home = () => {
   return (
     <div
       name="home"
-      className="w-full h-screen flex items-center bg-gradient-to-b from-[#000300] to-[#0a0a0a] py-[100px]"
+      className="w-full h-screen flex flex-col md:flex-row items-center bg-gradient-to-b from-[#000300] to-[#0a0a0a] md:py-[100px]"
     >
       <motion.div
         initial={{ y: -600 }}
         animate={{ y: 0 }}
         transition={{ duration: 1.4 }}
-        className="w-[55%] h-screen text-white flex flex-col items-center justify-center"
+        className="w-[90%] md:w-[55%] h-screen text-white flex flex-col items-center justify-center"
       >
-        <h1 className="text-[60px] text-[#ebdb04] font-bold">
+        <h1 className="mt-16 md:mt-0 text-[32px] md:text-[60px] text-[#ebdb04] font-bold">
           ZASIL SIĘ JUŻ DZIŚ!
         </h1>
-        <p className="text-[32px] mt-12 ">
+        <p className="text-[24px] md:text-[32px] mt-12 text-center">
           Indywidualne podejście do każdego klienta
         </p>
-        <p className="text-[32px] mt-6 ">
+        <p className="text-[24px] md:text-[32px] mt-6 md:block hidden">
           Zainstaluj generator{" "}
           <TypeAnimation
             sequence={["w DOMU", 1000, "w FIRMIE", 1000, "na BUDOWIE", 1000]}
@@ -31,7 +31,17 @@ const Home = () => {
             className="text-[#ebdb04] font-semibold"
           />
         </p>
-        <button className="mt-10 relative md:inline-flex items-center justify-center w-[250px] h-[60px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group">
+
+        <p className="text-[24px] mt-6 md:hidden">Zainstaluj generator </p>
+        <TypeAnimation
+          sequence={["w DOMU", 1000, "w FIRMIE", 1000, "na BUDOWIE", 1000]}
+          wrapper="span"
+          speed={250}
+          repeat={Infinity}
+          className="text-[#ebdb04] font-semibold text-[24px] md:hidden"
+        />
+
+        <button className="hidden mt-10 relative md:inline-flex items-center justify-center w-[250px] h-[60px] text-[20px] p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out border-2 rounded-full group">
           <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-y-full bg-jade group-hover:translate-y-0 ease">
             <svg
               width="45px"
@@ -59,15 +69,24 @@ const Home = () => {
           </span>
           {/* <span class="relative invisible"></span> */}
         </button>
+
+        <button className="md:hidden mt-6 border-2 text-[24px] px-8 py-1 rounded-full">
+          Katalog
+        </button>
       </motion.div>
-      <div className="w-[45%] mt-[80px]">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 100 }}
+        transition={{ duration: 1.4, ease: [0.32, 0, 0.75, 0] }}
+        className="md:w-[45%] mt-3 md:mt-[80px]"
+      >
         <img
           src={GeneratorPhoto}
           // Alternatively GeneratorPhoto, not yet decided in the production phase
           alt=""
-          className="h-screen object-cover rounded-l-[200px]"
+          className="md:h-screen h-[43vh] object-cover md:rounded-l-[200px]  md:border-none"
         />
-      </div>
+      </motion.div>
     </div>
   );
 };

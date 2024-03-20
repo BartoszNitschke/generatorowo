@@ -50,16 +50,16 @@ export const Knowledge = () => {
   return (
     <div
       name="wiedza"
-      className="w-full min-h-screen bg-gradient-to-b from-[#131313] to-[#0a0a0a] flex  items-start flex-col pt-[120px]"
+      className="w-full min-h-screen bg-gradient-to-b from-[#131313] to-[#0a0a0a] md:flex  items-start flex-col pt-[120px]"
     >
-      <div className="w-[90%] mx-auto text-white">
+      <div className="w-[85%] md:w-[90%] mx-auto text-white">
         <div>
           <h1 className="text-[#ebdb04] text-[48px] font-bold text-center ">
             Co musisz wiedzieć...
           </h1>
           <div>
             <div
-              className="text-gray-300 text-[24px] font-semibold mt-16 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
+              className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-16 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
               ref={ref}
               style={{
                 transform: isInView ? "none" : "translateX(-1200px)",
@@ -130,7 +130,7 @@ export const Knowledge = () => {
             </div>
 
             <div
-              className="text-gray-300 text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800 "
+              className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800 "
               ref={ref2}
               style={{
                 transform: isInView2 ? "none" : "translateX(-1200px)",
@@ -190,7 +190,7 @@ export const Knowledge = () => {
             </div>
 
             <div
-              className="text-gray-300 text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
+              className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
               ref={ref3}
               style={{
                 transform: isInView3 ? "none" : "translateX(-1200px)",
@@ -253,7 +253,7 @@ export const Knowledge = () => {
             </div>
 
             <div
-              className="text-gray-300 text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
+              className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
               ref={ref4}
               style={{
                 transform: isInView4 ? "none" : "translateX(-1200px)",
@@ -334,7 +334,7 @@ export const Knowledge = () => {
             </div>
 
             <div
-              className="text-gray-300 text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
+              className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
               ref={ref5}
               style={{
                 transform: isInView5 ? "none" : "translateX(-1200px)",
@@ -410,7 +410,7 @@ export const Knowledge = () => {
             </div>
 
             <div
-              className="text-gray-300 text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
+              className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
               ref={ref6}
               style={{
                 transform: isInView6 ? "none" : "translateX(-1200px)",
@@ -488,7 +488,7 @@ export const Knowledge = () => {
                 transitionDelay: "3.5s",
               }}
             >
-              <button className="mt-16 relative md:inline-flex items-center justify-center w-[250px] h-[60px] text-[20px] bg-[#ebdb04] opacity-85 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full  group">
+              <button className="hidden mt-16 relative md:inline-flex items-center justify-center w-[250px] h-[60px] text-[20px] bg-[#ebdb04] opacity-85 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full  group">
                 <span class="absolute inset-0 flex items-center justify-center w-full h-full text-gray-300 duration-300 -translate-y-full bg-jade group-hover:translate-y-0 ease">
                   <svg
                     width="45px"
@@ -514,6 +514,10 @@ export const Knowledge = () => {
                 <span class="absolute flex items-center justify-center w-full h-full text-black font-semibold transition-all duration-300 transform group-hover:translate-y-full ease">
                   Pobierz PDF
                 </span>
+              </button>
+
+              <button className="md:hidden w-[225px] text-[20px] mt-12 bg-[#ebdb04] py-3 px-7 rounded-full text-black font-semibold">
+                Pobierz PDF
               </button>
             </div>
           </div>
