@@ -128,7 +128,7 @@ const Calculator = () => {
   return (
     <div
       name="moje-zasilanie"
-      className="w-full min-h-[80vh] bg-gradient-to-b from-[#0a0a0a] to-[#131313] pt-[180px]"
+      className="w-full min-h-[80vh] bg-gradient-to-b from-[#0a0a0a] to-[#131313] md:pt-[180px] pt-[120px]"
     >
       <div className=" text-center w-full max-w-[85%] mx-auto">
         <div className="flex justify-center items-center gap-x-4">
@@ -151,8 +151,8 @@ const Calculator = () => {
           ></FiChevronsRight>
         </div>
 
-        <div className="pt-16 flex justify-center text-gray-300">
-          <div className="flex flex-col items-center w-[50%]">
+        <div className="pt-16 flex md:flex-row flex-col justify-center text-gray-300">
+          <div className="flex flex-col items-center md:w-[50%]">
             <p className="text-[24px] font-semibold pb-8 text-[#ebdb04]">
               Wybierz urządzenia
             </p>
@@ -160,7 +160,7 @@ const Calculator = () => {
               {devicesData && (
                 <div>
                   <form>
-                    <div className="flex justify-center relative w-[500px] h-[50px]">
+                    <div className="flex justify-center relative md:w-[500px] w-[300px] h-[50px]">
                       <select
                         className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer rounded-md"
                         onChange={handleSelectChange}
@@ -188,7 +188,7 @@ const Calculator = () => {
                     </div>
                   </form>
                   <form>
-                    <div className="flex justify-center relative w-[500px] h-[50px] mt-4">
+                    <div className="flex justify-center relative md:w-[500px] w-[300px] h-[50px] mt-4">
                       <select
                         className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer rounded-md"
                         onChange={handleSelectChange}
@@ -214,7 +214,7 @@ const Calculator = () => {
                   </form>
 
                   <form>
-                    <div className="flex justify-center relative w-[500px] h-[50px] mt-4">
+                    <div className="flex justify-center relative md:w-[500px] w-[300px] h-[50px] mt-4">
                       <select
                         className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer rounded-md"
                         onChange={handleSelectChange}
@@ -240,7 +240,7 @@ const Calculator = () => {
                   </form>
 
                   <form>
-                    <div className="flex justify-center relative w-[500px] h-[50px] mt-4">
+                    <div className="flex justify-center relative md:w-[500px] w-[300px] h-[50px] mt-4">
                       <select
                         className=" border-none appearance-none py-3 w-full text-white bg-gray-800 text-[20px] px-3 outline-none cursor-pointer rounded-md"
                         onChange={handleSelectChange}
@@ -275,7 +275,7 @@ const Calculator = () => {
               onSubmit={(e) => addNewDevice(e)}
               className="flex flex-col items-center"
             >
-              <div className="flex">
+              <div className="flex md:flex-row flex-col gap-y-4 md:gap-y-0 items-center">
                 <input
                   type="text"
                   placeholder="Nazwa"
@@ -287,14 +287,14 @@ const Calculator = () => {
                 <input
                   type="number"
                   placeholder="Moc (W)"
-                  className="mx-3 w-[140px] text-[22px] text-white rounded-md outline-none py-2 px-4 bg-gray-800 placeholder-gray-200 appearance-none"
+                  className="mx-3 md:w-[140px] text-[22px] text-white rounded-md outline-none py-2 px-4 bg-gray-800 placeholder-gray-200 appearance-none"
                   value={newDevicePower}
                   onChange={(e) => setNewDevicePower(parseInt(e.target.value))}
                   required={true}
                 />
               </div>
 
-              <button className="mt-6 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full shadow-md shadow-gray-700 group">
+              <button className="mt-6 relative hidden md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full shadow-md shadow-gray-700 group">
                 <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-jade group-hover:translate-x-0 ease">
                   <svg
                     width="40px"
@@ -317,21 +317,24 @@ const Calculator = () => {
                   Dodaj
                 </span>
               </button>
+              <button className="md:hidden mt-6 w-[180px] h-[50px] text-[20px] bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 p-4 px-6 py-3 font-semibold shadow-md shadow-gray-700 rounded-full">
+                Dodaj
+              </button>
             </form>
           </div>
 
-          <div className="w-[12%]"></div>
+          <div className="w-[12%] md:block hidden"></div>
 
-          <div className="flex flex-col relative w-[38%] ">
+          <div className="flex flex-col relative md:w-[38%] w-full mt-16 md:mt-0 ">
             <p className="text-[24px] font-semibold text-[#ebdb04]">Wybrane</p>
             <ul className="mt-6 text-left ">
               <li className="text-[24px] flex justify-between items-center gap-x-10 pt-2 pb-5 bg-gray-800 px-4 rounded-t-xl text-[#ebdb04] font-semibold">
                 <p className="">Urządzenie</p>
                 <div className="flex gap-x-6 items-center">
-                  <p>Moc</p>
-                  <p>Ilość</p>
+                  <p className="pr-4 md:pr-0">Moc</p>
+                  <p className="md:block hidden">Ilość</p>
                   <VscDebugRestart
-                    className="text-[28px] text-gray-300 cursor-pointer hover:text-white"
+                    className="text-[28px] text-gray-300 cursor-pointer hover:text-white md:block hidden"
                     onClick={() => {
                       setChosenDevices([]);
                       setSumPower(0);
@@ -343,10 +346,12 @@ const Calculator = () => {
               {chosenDevices &&
                 chosenDevices.map((device, index) => {
                   return (
-                    <li className="text-[24px] flex justify-between gap-x-10 py-2 select-none bg-gray-800 px-4 border-b-[1px] border-slate-600 mt-0 last:border-none">
+                    <li className="text-[24px] flex justify-between items-center gap-x-10 py-2 select-none bg-gray-800 px-4 border-b-[1px] border-slate-600 mt-0 last:border-none">
                       <p>{device.name}</p>
-                      <div className="flex gap-x-5 items-center">
-                        <p className=" whitespace-nowrap">{device.power} W</p>
+                      <div className="flex md:flex-row flex-col gap-x-5 gap-y-2 md:gap-y-0 items-center">
+                        <p className="whitespace-nowrap font-semibold">
+                          {device.power} W
+                        </p>
                         <div className="flex items-center gap-x-2 ">
                           <p className="text-[#ebdb04]">x{device.quantity}</p>
                           <FaMinus
@@ -369,15 +374,22 @@ const Calculator = () => {
               )}
             </ul>
 
-            <div className="text-[24px] flex justify-center gap-x-10 py-2 border-b-[1px] border-slate-900 bg-gray-800 pb-5 rounded-b-xl pt-8">
-              <div className="flex gap-x-2 font-semibold">
+            <div className="text-[24px] flex md:justify-center justify-between items-center md:gap-x-10 py-2 border-b-[1px] border-slate-900 bg-gray-800 pb-5 rounded-b-xl pt-8">
+              <div className="flex gap-x-2 font-semibold pl-4 md:pl-0">
                 <p className="text-[#ebdb04]">Twoja moc:</p>
                 <p className="">{sumPower} W</p>
               </div>
+              <VscDebugRestart
+                className="text-[28px] text-gray-300 cursor-pointer hover:text-white md:hidden mr-4 md:mr-0"
+                onClick={() => {
+                  setChosenDevices([]);
+                  setSumPower(0);
+                }}
+              ></VscDebugRestart>
             </div>
 
             <div className="mt-4 flex flex-col justify-center items-center text-[24px] py-2 text-center">
-              <button className="mt-4 relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full shadow-md shadow-gray-700 group">
+              <button className="mt-4 relative hidden md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full shadow-md shadow-gray-700 group">
                 <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-y-full bg-jade group-hover:translate-y-0 ease">
                   <svg
                     width="40px"
@@ -398,6 +410,9 @@ const Calculator = () => {
                 <span class="absolute flex items-center justify-center w-full h-full text-jade transition-all duration-300 transform group-hover:translate-y-full ease">
                   Wyszukaj
                 </span>
+              </button>
+              <button className="md:hidden w-[225px] text-[20px] text-gray-300 mt-4 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 py-3 px-7 rounded-full  font-semibold">
+                Wyszukaj
               </button>
             </div>
           </div>
