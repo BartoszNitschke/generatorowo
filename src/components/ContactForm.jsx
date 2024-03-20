@@ -49,10 +49,10 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="h-screen w-full  bg-gradient-to-b from-[#0a0a0a] to-[#070707] flex flex-col items-center justify-center pb-[150px]">
+    <div className="h-screen w-full  bg-gradient-to-b from-[#0a0a0a] to-[#070707] flex flex-col items-center justify-center md:pb-[150px]">
       <motion.form
         onSubmit={sendEmail}
-        className="flex flex-col w-[38%]"
+        className="flex flex-col md:w-[38%] w-[90%] mx-auto"
         ref={ref}
         style={{ scale: scaleProgres, opacity: opacityProgres }}
       >
@@ -90,7 +90,7 @@ const ContactForm = () => {
             {error}
           </p>
         )}
-        <button className="mt-8 relative md:inline-flex items-center justify-center w-[300px] h-[60px] text-[20px] bg-[#ebdb04] opacity-85 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full  border-gray-300 group mx-auto">
+        <button className="mt-8 relative hidden md:inline-flex items-center justify-center w-[300px] h-[60px] text-[20px] bg-[#ebdb04] opacity-85 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full  border-gray-300 group mx-auto">
           <span class="absolute inset-0 flex items-center justify-center w-full h-full duration-300 -translate-x-full group-hover:translate-x-0 ease">
             <svg
               width="40px"
@@ -111,6 +111,9 @@ const ContactForm = () => {
           <span class="absolute flex items-center justify-center w-full h-full text-black opacity-100 font-semibold transition-all duration-300 transform group-hover:translate-x-full ease">
             Wyślij
           </span>
+        </button>
+        <button className="md:hidden mx-auto w-[225px] text-[20px] mt-10 bg-[#ebdb04] py-3 px-7 rounded-full text-black font-semibold">
+          Wyślij
         </button>
       </motion.form>
     </div>
