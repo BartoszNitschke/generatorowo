@@ -47,6 +47,8 @@ export const Knowledge = () => {
   const isInView6 = useInView(ref6, { once: true });
   const isInView7 = useInView(ref7, { once: true });
 
+  const shouldAnimate = window.innerWidth > 768;
+
   return (
     <div
       name="wiedza"
@@ -62,9 +64,15 @@ export const Knowledge = () => {
               className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-16 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
               ref={ref}
               style={{
-                transform: isInView ? "none" : "translateX(-1200px)",
+                transform: isInView
+                  ? "none"
+                  : shouldAnimate
+                  ? "translateX(-1200px)"
+                  : "none",
                 opacity: isInView ? 1 : 0,
-                transition: "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+                transition: shouldAnimate
+                  ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
+                  : "none",
               }}
             >
               <div
@@ -133,9 +141,15 @@ export const Knowledge = () => {
               className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800 "
               ref={ref2}
               style={{
-                transform: isInView2 ? "none" : "translateX(-1200px)",
+                transform: isInView2
+                  ? "none"
+                  : shouldAnimate
+                  ? "translateX(-1200px)"
+                  : "none",
                 opacity: isInView2 ? 1 : 0,
-                transition: "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+                transition: shouldAnimate
+                  ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
+                  : "none",
                 transitionDelay: "1s",
               }}
             >
@@ -193,9 +207,15 @@ export const Knowledge = () => {
               className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
               ref={ref3}
               style={{
-                transform: isInView3 ? "none" : "translateX(-1200px)",
+                transform: isInView3
+                  ? "none"
+                  : shouldAnimate
+                  ? "translateX(-1200px)"
+                  : "none",
                 opacity: isInView3 ? 1 : 0,
-                transition: "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+                transition: shouldAnimate
+                  ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
+                  : "none",
                 transitionDelay: "1.5s",
               }}
             >
@@ -256,9 +276,15 @@ export const Knowledge = () => {
               className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
               ref={ref4}
               style={{
-                transform: isInView4 ? "none" : "translateX(-1200px)",
+                transform: isInView4
+                  ? "none"
+                  : shouldAnimate
+                  ? "translateX(-1200px)"
+                  : "none",
                 opacity: isInView4 ? 1 : 0,
-                transition: "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+                transition: shouldAnimate
+                  ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
+                  : "none",
                 transitionDelay: "2s",
               }}
             >
@@ -337,9 +363,15 @@ export const Knowledge = () => {
               className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
               ref={ref5}
               style={{
-                transform: isInView5 ? "none" : "translateX(-1200px)",
+                transform: isInView5
+                  ? "none"
+                  : shouldAnimate
+                  ? "translateX(-1200px)"
+                  : "none",
                 opacity: isInView5 ? 1 : 0,
-                transition: "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+                transition: shouldAnimate
+                  ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
+                  : "none",
                 transitionDelay: "2.5s",
               }}
             >
@@ -413,9 +445,15 @@ export const Knowledge = () => {
               className="text-gray-300 text-[20px] md:text-[24px] font-semibold mt-8 bg-gray-800 px-5 py-2 rounded-md shadow-md shadow-gray-800"
               ref={ref6}
               style={{
-                transform: isInView6 ? "none" : "translateX(-1200px)",
+                transform: isInView6
+                  ? "none"
+                  : shouldAnimate
+                  ? "translateX(-1200px)"
+                  : "none",
                 opacity: isInView6 ? 1 : 0,
-                transition: "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+                transition: shouldAnimate
+                  ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
+                  : "none",
                 transitionDelay: "3s",
               }}
             >
@@ -482,9 +520,15 @@ export const Knowledge = () => {
               className="flex items-center justify-center"
               ref={ref7}
               style={{
-                transform: isInView7 ? "none" : "translateX(-1200px)",
+                transform: isInView7
+                  ? "none"
+                  : shouldAnimate
+                  ? "translateX(-1200px)"
+                  : "none",
                 opacity: isInView7 ? 1 : 0,
-                transition: "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+                transition: shouldAnimate
+                  ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
+                  : "none",
                 transitionDelay: "3.5s",
               }}
             >
