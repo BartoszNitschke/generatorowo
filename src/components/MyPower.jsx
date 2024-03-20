@@ -24,7 +24,7 @@ const TopContent = () => {
   return (
     <div
       name="moje-zasilanie"
-      className="w-full min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#131313] md:flex flex-col justify-center items-center py-[80px] "
+      className="w-full min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#131313] md:flex flex-col justify-center items-center md:py-[80px] pt-[125px] pb-[40px]"
     >
       <motion.div
         ref={ref}

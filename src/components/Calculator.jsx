@@ -129,7 +129,7 @@ const Calculator = () => {
   return (
     <div
       name="moje-zasilanie"
-      className="w-full min-h-[80vh] bg-gradient-to-b from-[#0a0a0a] to-[#131313] md:pt-[180px] pt-[120px]"
+      className="w-full min-h-[80vh] bg-gradient-to-b from-[#0a0a0a] to-[#131313] md:pt-[180px] pt-[185px]"
     >
       <div className=" text-center w-full max-w-[85%] mx-auto">
         <div className="flex justify-center items-center gap-x-4">
