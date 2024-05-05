@@ -1,11 +1,13 @@
-import React, { useRef, useState, useContext } from "react";
-import { FaHome, FaChevronDown, FaPlus, FaMinus } from "react-icons/fa";
+import React, { useRef, useContext } from "react";
+import { FaHome } from "react-icons/fa";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
-import { MdConstruction, MdDelete } from "react-icons/md";
+import { MdConstruction } from "react-icons/md";
 import { CalculatorContext } from "../context/CalculatorContext";
 import Calculator from "./Calculator";
 import CompanyCalculator from "./CompanyCalculator";
 import ConstructionCalculator from "./ConstructionCalculator";
+import Results from "./Results";
+import LoadingResults from "./LoadingResults";
 import { Link } from "react-scroll";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -24,7 +26,7 @@ const TopContent = () => {
   return (
     <div
       name="moje-zasilanie"
-      className="w-full min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#131313] md:flex flex-col justify-center items-center md:py-[80px] pt-[125px] pb-[40px]"
+      className="w-full min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#111111] md:flex flex-col justify-center items-center md:py-[80px] pt-[125px] pb-[40px]"
     >
       <motion.div
         ref={ref}
@@ -97,7 +99,7 @@ const TopContent = () => {
 };
 
 const MojeZasilanie = () => {
-  const { calculatorType } = useContext(CalculatorContext);
+  const { calculatorType, showResults } = useContext(CalculatorContext);
 
   return (
     <>
@@ -105,6 +107,8 @@ const MojeZasilanie = () => {
       {calculatorType === "home" && <Calculator />}
       {calculatorType === "company" && <CompanyCalculator />}
       {calculatorType === "construction" && <ConstructionCalculator />}
+      {showResults === "true" && <Results />}
+      {showResults === "loading" && <LoadingResults />}
     </>
   );
 };
