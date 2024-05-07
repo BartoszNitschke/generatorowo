@@ -7,9 +7,6 @@ import { FiChevronsRight, FiChevronsLeft } from "react-icons/fi";
 import { VscDebugRestart } from "react-icons/vsc";
 import { db } from "../lib/firebaseConfig.js";
 import { getDocs, collection } from "firebase/firestore";
-import Generator1 from "../assets/test_generator1.png";
-import Generator2 from "../assets/test_generator2.png";
-import Generator3 from "../assets/test_generator3.png";
 
 async function fetchDataFromFirestore() {
   const querySnapshot = await getDocs(collection(db, "devices"));
@@ -23,7 +20,7 @@ async function fetchDataFromFirestore() {
 }
 
 const Calculator = () => {
-  const { setCalculatorType } = useContext(CalculatorContext);
+  const { setCalculatorType, setShowResults } = useContext(CalculatorContext);
 
   const [devicesData, setDevicesData] = useState([]);
   const [sumPower, setSumPower] = useState(
@@ -34,7 +31,6 @@ const Calculator = () => {
   );
   const [newDeviceName, setNewDeviceName] = useState("");
   const [newDevicePower, setNewDevicePower] = useState("");
-  const [showGenerators, setShowGenerators] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -122,13 +118,16 @@ const Calculator = () => {
   };
 
   const handleSearchVisibility = () => {
-    setShowGenerators(!showGenerators);
+    setShowResults("loading");
+    setTimeout(() => {
+      setShowResults("true");
+    }, 3000);
   };
 
   return (
     <div
       name="moje-zasilanie"
-      className="w-full min-h-[80vh] bg-gradient-to-b from-[#0a0a0a] to-[#131313] md:pt-[180px] pt-[185px]"
+      className="w-full min-h-[80vh] bg-gradient-to-b from-[#0a0a0a] to-[#111111] md:pt-[180px] pt-[185px]"
     >
       <div className=" text-center w-full max-w-[85%] mx-auto">
         <div className="flex justify-center items-center gap-x-4">
@@ -247,10 +246,10 @@ const Calculator = () => {
                         value={"Inne"}
                       >
                         <option value="" className="cursor-pointer">
-                          Inne
+                          Wysokopoborowe
                         </option>
                         {devicesData.map((device) => {
-                          if (device.category === "inne") {
+                          if (device.category === "wysokopoborowe") {
                             return (
                               <option value={device.name}>{device.name}</option>
                             );
@@ -389,7 +388,10 @@ const Calculator = () => {
             </div>
 
             <div className="mt-4 flex flex-col justify-center items-center text-[24px] py-2 text-center">
-              <button className="mt-4 hidden relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full shadow-md shadow-gray-700 group">
+              <button
+                className="mt-4 hidden relative md:inline-flex items-center justify-center w-[180px] h-[50px] text-[20px] bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full shadow-md shadow-gray-700 group"
+                onClick={handleSearchVisibility}
+              >
                 <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-y-full bg-jade group-hover:translate-y-0 ease">
                   <svg
                     width="40px"
@@ -411,20 +413,15 @@ const Calculator = () => {
                   Wyszukaj
                 </span>
               </button>
-              <button className="md:hidden w-[225px] text-[20px] text-gray-300 mt-4 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 py-3 px-7 rounded-full  font-semibold">
+              <button
+                className="md:hidden w-[225px] text-[20px] text-gray-300 mt-4 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 py-3 px-7 rounded-full  font-semibold"
+                onClick={handleSearchVisibility}
+              >
                 Wyszukaj
               </button>
             </div>
           </div>
         </div>
-
-        {showGenerators && (
-          <div className="flex gap-x-4 mt-14 justify-center">
-            <img src={Generator1} alt="" className="w-[200px]" />
-            <img src={Generator2} alt="" className="w-[200px]" />
-            <img src={Generator3} alt="" className="w-[200px]" />
-          </div>
-        )}
       </div>
     </div>
   );
