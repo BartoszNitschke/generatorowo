@@ -415,7 +415,10 @@ const Calculator = () => {
                 </span>
               </button>
 
-              <button className="md:hidden w-[225px] text-[20px] text-gray-300 mt-4 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 py-3 px-7 rounded-full  font-semibold">
+              <button
+                className="md:hidden w-[225px] text-[20px] text-gray-300 mt-4 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 py-3 px-7 rounded-full  font-semibold"
+                onClick={handleSearchVisibility}
+              >
                 Wyszukaj
               </button>
             </div>

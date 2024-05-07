@@ -59,6 +59,12 @@ const Results = () => {
     }
   };
 
+  const increaseIndexForMobile = () => {
+    if (generatorIndex + 1 < generators.length) {
+      setGeneratorIndex(generatorIndex + 1);
+    }
+  };
+
   const decreaseIndex = () => {
     if (generatorIndex > 0) {
       setGeneratorIndex(generatorIndex - 1);
@@ -74,8 +80,8 @@ const Results = () => {
   }
 
   return (
-    <div className=" bg-gradient-to-b from-[#111111] to-[#111111] flex flex-col items-center justify-center overflow-hidden  pt-[100px] pb-[40px]">
-      <div className="flex gap-x-16 items-center">
+    <div className=" bg-gradient-to-b from-[#111111] to-[#111111] flex flex-col items-center justify-center overflow-hidden md:pt-[100px] pb-[40px] pt-[60px]">
+      <div className="hidden md:flex gap-x-16 items-center">
         <FiChevronsLeft
           onClick={decreaseIndex}
           className={
@@ -124,15 +130,60 @@ const Results = () => {
           }
         ></FiChevronsRight>
       </div>
-      <p className="pt-[80px] text-[24px] text-gray-300">
-        Masz więcej pytań?{" "}
+
+      <div className="md:hidden flex justify-center items-center  w-full">
+        <FiChevronsLeft
+          onClick={decreaseIndex}
+          className={
+            generatorIndex > 0
+              ? "text-gray-300 text-[64px] cursor-pointer hover:text-gray-100"
+              : "text-transparent text-[64px]"
+          }
+        ></FiChevronsLeft>
+
+        {generators &&
+          generators
+            .slice(generatorIndex, generatorIndex + 1)
+            .map((generator) => (
+              <div
+                key={generator.id}
+                className="flex flex-col justify-center items-center min-w-[250px]"
+              >
+                <img
+                  src={ExampleGenerator}
+                  className="w-[180px] select-none"
+                  alt={generator.name}
+                  style={{ flexShrink: 0 }}
+                />
+                <p className="text-[24px] text-white">{generator.name}</p>
+                <p className="text-[20px] text-white">
+                  Maksymalna moc:{" "}
+                  <span className="font-semibold text-[#ebdb04]">
+                    {generator.power}{" "}
+                  </span>{" "}
+                  W
+                </p>
+              </div>
+            ))}
+
+        <FiChevronsRight
+          onClick={increaseIndexForMobile}
+          className={
+            generatorIndex + 1 < generators.length
+              ? "text-gray-300 text-[64px] cursor-pointer hover:text-gray-100"
+              : "text-transparent text-[64px]"
+          }
+        ></FiChevronsRight>
+      </div>
+      <div className="pt-[80px] text-[24px] text-gray-300 text-center w-[90%] md:flex justify-center gap-x-2">
+        <p>Masz więcej pytań? </p>
         <span
           onClick={() => setFormVisible(true)}
           className="text-[#ebdb04] font-semibold cursor-pointer"
         >
-          Wyślij nam swoje wyniki!
+          Wyślij nam swoje wyniki, a my się z Tobą skontaktujemy!
         </span>
-      </p>
+      </div>
       {formVisible && <FormWithDevices />}
     </div>
   );

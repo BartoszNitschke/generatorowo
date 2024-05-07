@@ -150,7 +150,7 @@ export const Knowledge = () => {
                 transition: shouldAnimate
                   ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
                   : "none",
-                transitionDelay: "1s",
+                transitionDelay: "0.7s",
               }}
             >
               <div
@@ -216,7 +216,7 @@ export const Knowledge = () => {
                 transition: shouldAnimate
                   ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
                   : "none",
-                transitionDelay: "1.5s",
+                transitionDelay: "0.9s",
               }}
             >
               <div
@@ -285,7 +285,7 @@ export const Knowledge = () => {
                 transition: shouldAnimate
                   ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
                   : "none",
-                transitionDelay: "2s",
+                transitionDelay: "1.1s",
               }}
             >
               <div
@@ -372,7 +372,7 @@ export const Knowledge = () => {
                 transition: shouldAnimate
                   ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
                   : "none",
-                transitionDelay: "2.5s",
+                transitionDelay: "1.3s",
               }}
             >
               <div
@@ -454,7 +454,7 @@ export const Knowledge = () => {
                 transition: shouldAnimate
                   ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
                   : "none",
-                transitionDelay: "3s",
+                transitionDelay: "1.5s",
               }}
             >
               <div
@@ -529,7 +529,7 @@ export const Knowledge = () => {
                 transition: shouldAnimate
                   ? "all 1.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
                   : "none",
-                transitionDelay: "3.5s",
+                transitionDelay: "1.7s",
               }}
             >
               <button className="hidden mt-16 relative md:inline-flex items-center justify-center w-[250px] h-[60px] text-[20px] bg-[#ebdb04] opacity-85 p-4 px-6 py-3 overflow-hidden font-semibold  transition duration-300 ease-out rounded-full  group">
