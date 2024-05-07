@@ -52,7 +52,7 @@ export const Knowledge = () => {
   return (
     <div
       name="wiedza"
-      className="w-full min-h-screen bg-gradient-to-b from-[#131313] to-[#0a0a0a] md:flex  items-start flex-col pt-[120px]"
+      className="w-full min-h-screen bg-gradient-to-b from-[#111111] to-[#0a0a0a] md:flex  items-start flex-col pt-[120px]"
     >
       <div className="w-[85%] md:w-[90%] mx-auto text-white">
         <div>

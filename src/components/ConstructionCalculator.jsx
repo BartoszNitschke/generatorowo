@@ -246,10 +246,10 @@ const Calculator = () => {
                         value={"Inne"}
                       >
                         <option value="" className="cursor-pointer">
-                          Inne
+                          Wysokopoborowe
                         </option>
                         {devicesData.map((device) => {
-                          if (device.category === "inne") {
+                          if (device.category === "wysokopoborowe") {
                             return (
                               <option value={device.name}>{device.name}</option>
                             );
